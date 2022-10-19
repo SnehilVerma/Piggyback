@@ -11,6 +11,7 @@
 
 
 # Data and path finding steps
+* https://maps2-amherstma.opendata.arcgis.com/datasets/street-centerlines/explore?location=42.378573%2C-72.512894%2C15.84
 * We use the Amherst GIS Routes data to get an accurate street map of Amherst town.
 * Using the Routes json file we are able to create a graph of the entire Amherst town , where each node is a street name, and connects to other streets ( neighbours of this node )
 * We are running a modified BFS on top of this, to get a shortest path of any source to any destination.
