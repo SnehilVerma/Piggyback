@@ -18,7 +18,7 @@
 
 
 # Pending items
-* We should do all pair shortest paths and store it in one shot because route data will be constant and won't change.
+* ~We should do all pair shortest paths and store it in one shot because route data will be constant and won't change.~ Done
 * We can convert this unweighted graph of the city into a weighted graph to provide better directions. Why? Because many streets are long as compared to another and it doesn't make much sense to take their path length as 1 when compared with much smaller streets. The dataset has segments for long streets with multiple intersections. As a beginner step, we can take the sum of segments as the weight of that path. At a high level, more segments for a street does represent the qualitative length of the street.
 
 
