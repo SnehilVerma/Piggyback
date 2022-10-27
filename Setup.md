@@ -1,8 +1,8 @@
 ## Setup steps
 
 ### Prerequisites to test the project after pulling.
-1) Install npm if not installed will be needed to run react client.
-2) Use IntelliJ if possible, makes things doing easier else use anything  ¯\_(ツ)_/¯
+1) Install npm if not installed. It will be needed to run react client.
+2) Use IntelliJ if possible ( makes things easier ) else you can use anything  ¯\\ _(ツ) _/¯
 
 
 Backend - Spring Boot: ( Description - not required to run these again )
