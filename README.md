@@ -23,5 +23,5 @@
 
 
 # Future items - inclusion of these items dependent on time available.
-* We can show the route percentage match for each rider whenever an overlapping passenger request is found. And similary for passenger we can show a similar stat ( More thought needs to be given to this)
+* We can show the route percentage match for each rider whenever an overlapping passenger request is found. And similarly for passenger we can show a similar stat ( More thought needs to be given to this)
 * A rider won't know the exact street on which they are booking the ride from. We can use their GPS data to identify the coordinates and find the closest street to their coordinate by simple coordinate distance matching. ( We have the coordinate data for each street in the dataset. )
