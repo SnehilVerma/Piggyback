@@ -24,4 +24,11 @@ Frontend - React
 
 command to run react UI : npm start ( inside src/client directory )
 
+
+MongoDB setup:
+* Download MongoDB compass to visualize the database.
+* The cluster and the databse is already created. DB name : **PiggyBack**, right now only one collection exists : **Users**.
+* MongoDB spring boot dependency setup in the pom file.
+* Checked saving and querying dummy data. ✔️
+
 If this setup works for you, you should be good to go and build functionalities on top of this setup.
