@@ -1,0 +1,4 @@
+https://www.mongodb.com/compatibility/spring-boot
+https://www.split.io/blog/tutorial-spring-boot-react/
+https://spring.io/guides/gs/spring-boot/#scratch
+https://docs.spring.io/spring-boot/docs/1.1.4.RELEASE/reference/html/getting-started-first-application.html
