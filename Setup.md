@@ -53,14 +53,16 @@ RequestRide endpoint: <br>
 POST
 {src:"X",dst:"Y",time:"date/time"}
 
-
-Must go through : 
-1) https://turkogluc.com/server-sent-events-with-spring-boot-and-reactjs/
-2) https://medium.com/yemeksepeti-teknoloji/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73
-
 1. We'll be using Server Side Events concept for this api. 
 2. The client will be using EventSource interface to subscribe to the server emitter. ( setup a connection with server )
 3. Once the client sends request, we deliver the request to the queue/job which will try to match up a rider with a passenger. Once that is achieved, the server side emitter will be responsible to send the update back to the client. All this will be done asynchronously.
 4. The client cannot make any further request unless they exit the waiting screen on UI. ( in which case we close the connection )
 5. Other are we close the connection ( when the ride is booked ).
+
+
+### To understand above steps ###
+Must go through : 
+1) https://turkogluc.com/server-sent-events-with-spring-boot-and-reactjs/
+2) https://medium.com/yemeksepeti-teknoloji/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73
+
 
