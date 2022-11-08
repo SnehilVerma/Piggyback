@@ -33,3 +33,26 @@ MongoDB setup:
 * You can find the Mongo connection srv string in the **application.properties** file of the Spring Boot project.
 
 If this setup works for you, you should be good to go and build functionalities on top of this setup.
+
+
+
+
+
+
+RequestRide endpoint: 
+https://medium.com/yemeksepeti-teknoloji/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73
+(Initial thoughts and ideas) - Need to discuss tradeoffs between WebSockets and ServerSide events.
+1. Avoid polling/long polling - easy to implement but not used much anymore.
+2. WebSockets - heavily used but overkill for our project.
+3. SSE - best of both worlds for now - easier learning curve and used in industry ( so good to learn )
+
+/piggyback/request_ride
+POST
+{src:"X",dst:"Y",time:"date/time"}
+
+1. We'll be using Server Side Events concept for this api. 
+2. The client will be using EventSource interface to subscribe to the server emitter. ( setup a connection with server )
+3. Once the client sends request, we deliver the request to the queue/job which will try to match up a rider with a passenger. Once that is achieved, the server side emitter will be responsible to send the update back to the client. All this will be done asynchronously.
+4. The client cannot make any further request unless they exit the waiting screen on UI. ( in which case we close the connection )
+5. Other are we close the connection ( when the ride is booked ).
+
