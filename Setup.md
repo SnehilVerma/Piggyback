@@ -36,8 +36,10 @@ If this setup works for you, you should be good to go and build functionalities 
 
 
 
+<br>
+<br>
 
-
+### Async data fetching ideas ###
 
 RequestRide endpoint: 
 https://medium.com/yemeksepeti-teknoloji/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73
