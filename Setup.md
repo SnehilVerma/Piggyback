@@ -41,8 +41,9 @@ If this setup works for you, you should be good to go and build functionalities 
 
 ### Async data fetching ideas ###
 
-RequestRide endpoint: 
-https://medium.com/yemeksepeti-teknoloji/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73
+RequestRide endpoint: <br>
+
+
 (Initial thoughts and ideas) - Need to discuss tradeoffs between WebSockets and ServerSide events.
 1. Avoid polling/long polling - easy to implement but not used much anymore.
 2. WebSockets - heavily used but overkill for our project.
@@ -51,6 +52,11 @@ https://medium.com/yemeksepeti-teknoloji/what-is-server-sent-events-sse-and-how-
 /piggyback/request_ride
 POST
 {src:"X",dst:"Y",time:"date/time"}
+
+
+Must go through : 
+1) https://turkogluc.com/server-sent-events-with-spring-boot-and-reactjs/
+2) https://medium.com/yemeksepeti-teknoloji/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73
 
 1. We'll be using Server Side Events concept for this api. 
 2. The client will be using EventSource interface to subscribe to the server emitter. ( setup a connection with server )
