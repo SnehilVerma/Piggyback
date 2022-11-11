@@ -2,6 +2,8 @@ package com.fivetwenty.piggyback;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fivetwenty.piggyback.model.IUser;
+import com.fivetwenty.piggyback.model.User;
 import com.fivetwenty.piggyback.repository.RoutesRepository;
 import com.fivetwenty.piggyback.repository.UserRepository;
 import org.bson.Document;
@@ -42,15 +44,7 @@ public class PiggybackApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		//SAMPLE DATA INSERTION/QUERY - done using mongo repositories.
-//		User user1 = new User("","Snehil Verma",0.0f, IUser.UserType.DRIVER);
-//		User user2 = new User("","Piusha G",0.0f, IUser.UserType.PASSENGER);
-//		userRepository.save(user1);
-//		userRepository.save(user2);
-//		System.out.println("Users saved");
-
-		//there are many ways to do this and only for TEST we are doing this.
-//		System.out.println(userRepository.findUserByName("Snehil Verma").getUserType());
-//		System.out.println(userRepository.findUserByName("Piusha G").getUserType());
+		//UserDumper();
 
 
 
@@ -59,6 +53,16 @@ public class PiggybackApplication implements CommandLineRunner {
 
 	}
 
+	//TODO: Sample code 1
+	public void UserDumper(){
+		User user1 = new User("","Snehil Verma",0.0f, IUser.UserType.DRIVER);
+		User user2 = new User("","Piusha G",0.0f, IUser.UserType.PASSENGER);
+		userRepository.save(user1);
+		userRepository.save(user2);
+		System.out.println("Users saved");
+	}
+
+	//TODO: Sample code 1
 	//Helper method to insert all routes data to mongo db collection : Routes.
 	//This one is done using Mongo client object - another handy way to insert data.
 	public void RoutesDataDumper() throws Exception{
