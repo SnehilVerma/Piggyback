@@ -65,4 +65,12 @@ Must go through :
 1) https://turkogluc.com/server-sent-events-with-spring-boot-and-reactjs/
 2) https://medium.com/yemeksepeti-teknoloji/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73
 
+<br>
+
+### Important change on client side ####
+* Looks like EventSource API on React can only send GET requests which will not server our purpose since the frontend needs to send params.
+* We'll be using Fetch Event Source API to achieve this.
+* Link to learn usage of this package/API - https://blog.logrocket.com/using-fetch-event-source-server-sent-events-react/
+* Server side code can remain as it is.
+
 
