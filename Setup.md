@@ -68,7 +68,7 @@ Must go through :
 <br>
 
 ### Important change on client side ####
-* Looks like EventSource API on React can only send GET requests which will not server our purpose since the frontend needs to send params.
+* Looks like EventSource API on React can only send GET requests which will not serve our purpose since the frontend needs to send params.
 * We'll be using Fetch Event Source API to achieve this.
 * Link to learn usage of this package/API - https://blog.logrocket.com/using-fetch-event-source-server-sent-events-react/
 * Server side code can remain as it is.
