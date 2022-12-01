@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+// import here the component you want to render
 import Login from "./Login/Login.js";
+import RideBook from "./RideBook/RideBook.js"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-//const element = <h1>Hello, world</h1>;
-//root.render(element);
+
 root.render(
   <React.StrictMode>
-    <Login />
+    // Add here the name of the component you want to render
+    <RideBook />
   </React.StrictMode>
 );
 
