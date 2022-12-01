@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 // import here the component you want to render
 import Login from "./Login/Login.js";
@@ -10,9 +14,9 @@ import RideBook from "./RideBook/RideBook.js"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+// Add here the name of the component you want to render - For Eg. RideBook
 root.render(
   <React.StrictMode>
-    // Add here the name of the component you want to render
     <RideBook />
   </React.StrictMode>
 );
