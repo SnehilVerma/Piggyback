@@ -6,7 +6,12 @@ import com.fivetwenty.piggyback.model.IUser;
 import com.fivetwenty.piggyback.model.User;
 import com.fivetwenty.piggyback.repository.RoutesRepository;
 import com.fivetwenty.piggyback.repository.UserRepository;
+import com.fivetwenty.piggyback.service.RidePairing;
 import org.bson.Document;
+import org.jobrunr.jobs.mappers.JobMapper;
+import org.jobrunr.scheduling.JobScheduler;
+import org.jobrunr.storage.InMemoryStorageProvider;
+import org.jobrunr.storage.StorageProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +21,10 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +40,23 @@ public class PiggybackApplication implements CommandLineRunner {
 	@Autowired
 	RoutesRepository routesRepository;
 
+
+	@Autowired
+	JobScheduler jobScheduler;
+
+	@Autowired
+	private RidePairing ridePairing;
+
 	public static void main(String[] args) {
 		SpringApplication.run(PiggybackApplication.class, args);
 		System.out.println("Starting Application");
-
-
 	}
 
+
+	@PostConstruct
+	public void init(){
+		jobScheduler.enqueue(()-> ridePairing.executeRidePairing());
+	}
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -49,7 +67,6 @@ public class PiggybackApplication implements CommandLineRunner {
 
 
 		//RoutesDataDumper(); 	//ONLY uncomment if you need to insert data again.
-
 
 	}
 

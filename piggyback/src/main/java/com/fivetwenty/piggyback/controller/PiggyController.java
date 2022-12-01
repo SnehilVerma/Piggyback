@@ -1,7 +1,10 @@
 package com.fivetwenty.piggyback.controller;
 
 import com.fivetwenty.piggyback.model.PickupDrop;
+import com.fivetwenty.piggyback.service.RidePairing;
 import org.apache.logging.log4j.message.Message;
+import org.jobrunr.scheduling.JobScheduler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -63,6 +66,16 @@ public class PiggyController {
         System.out.println("exiting controller");
         return sseEmitter;
 
+    }
+
+
+    @GetMapping("/matches")
+    public SseEmitter matches(){
+        SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
+        sseEmitter.onCompletion(()->System.out.println("SseEmitted completed"));
+        sseEmitter.onTimeout(()->System.out.println("SseEmitted completed"));
+        sseEmitter.onError((ex)->System.out.println("error " + ex));
+        return sseEmitter;
     }
 
 }
