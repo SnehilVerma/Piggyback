@@ -7,3 +7,9 @@ React with Spring boot server side events to update UI:
 https://turkogluc.com/server-sent-events-with-spring-boot-and-reactjs/
 
 https://stackoverflow.com/questions/13278365/downside-of-using-server-sent-events-for-bidirectional-client-server-communicati
+
+
+Alternative to polling:
+https://medium.com/swlh/an-alternative-strategy-to-api-polling-using-pub-sub-and-mqtt-40dc643dcf82#:~:text=Alternate%20Strategies%20to%20API%20Polling,the%20client%20from%20constantly%20checking.
+
+https://aws.amazon.com/pub-sub-messaging/
