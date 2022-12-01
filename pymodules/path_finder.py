@@ -59,33 +59,6 @@ def accumulate_paths(parents,dest,paths,path):
 
 
 
-# simple dfs to find all paths won't work for large undirected graph.
-# TODO: delete this method.
-'''
-def find_path(u,v,adj_list,path,vis,all_paths,max_path_length = 1000000):
-
-    if u in vis:
-        return
-
-    # print(u)    
-    vis.add(u)
-    path.append(u)
-
-    if u == v:  #found destination.
-        # print('path found')
-        print(path)
-        all_paths.append(path.copy())
-    else:
-        if u in adj_list:
-            nei = adj_list[u]
-            if nei:
-                for n in nei:
-                    find_path(n,v,adj_list,path,vis,all_paths)
-
-    path.pop()
-    vis.remove(u)
-'''
-
 
 #TODO: make it public and other methods private
 def generate_return_paths(src,dest,adj_list):
@@ -93,6 +66,8 @@ def generate_return_paths(src,dest,adj_list):
     paths = []  # list of all shortest paths.
     path = [] # worker list to store current path.
     accumulate_paths(parents,dest,paths,path)
+    for p in paths:
+        p.reverse()
     return paths
 
 
