@@ -3,7 +3,10 @@ package com.fivetwenty.piggyback;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fivetwenty.piggyback.model.IUser;
+import com.fivetwenty.piggyback.model.PassengerRequest;
 import com.fivetwenty.piggyback.model.User;
+import com.fivetwenty.piggyback.repository.DriverRequestRepository;
+import com.fivetwenty.piggyback.repository.PassengerRequestRepository;
 import com.fivetwenty.piggyback.repository.RoutesRepository;
 import com.fivetwenty.piggyback.repository.UserRepository;
 import org.bson.Document;
@@ -31,6 +34,8 @@ public class PiggybackApplication implements CommandLineRunner {
 
 	@Autowired
 	RoutesRepository routesRepository;
+
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(PiggybackApplication.class, args);
@@ -61,6 +66,8 @@ public class PiggybackApplication implements CommandLineRunner {
 		userRepository.save(user2);
 		System.out.println("Users saved");
 	}
+
+
 
 	//TODO: Sample code 1
 	//Helper method to insert all routes data to mongo db collection : Routes.

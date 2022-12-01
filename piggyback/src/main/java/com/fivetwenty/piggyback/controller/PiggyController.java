@@ -1,7 +1,13 @@
 package com.fivetwenty.piggyback.controller;
 
+import com.fivetwenty.piggyback.model.CustomerRequest;
+import com.fivetwenty.piggyback.model.DriverRequest;
+import com.fivetwenty.piggyback.model.PassengerRequest;
 import com.fivetwenty.piggyback.model.PickupDrop;
+import com.fivetwenty.piggyback.repository.DriverRequestRepository;
+import com.fivetwenty.piggyback.repository.PassengerRequestRepository;
 import org.apache.logging.log4j.message.Message;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -18,6 +24,13 @@ public class PiggyController {
     //TODO: need to check which concrete object to assign to ExecutorService interface.
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
+
+    @Autowired
+    PassengerRequestRepository passengerRequestRepository;
+
+    @Autowired
+    DriverRequestRepository driverRequestRepository;
+
     @GetMapping("/")
     public String index(){
         return "Application OK";
@@ -26,7 +39,29 @@ public class PiggyController {
     @PostMapping("/queryRoute")
     public String getRoutes(@RequestBody PickupDrop pickupDrop){
         System.out.println(pickupDrop.getPickup() + " " + pickupDrop.getDrop());
+
         return pickupDrop.toString();
+    }
+
+    public void requestDump(CustomerRequest customerRequest){
+        String userId = customerRequest.getUserId();
+        String src = customerRequest.getSrc();
+        String dst = customerRequest.getDst();
+
+        System.out.println(customerRequest.getType());
+        if (customerRequest.getType().equals("Driver")){
+            DriverRequest driverRequest = new DriverRequest(userId, src, dst);
+            driverRequestRepository.save(driverRequest);
+        } else {
+            PassengerRequest passengerRequest = new PassengerRequest(userId, src, dst);
+            passengerRequestRepository.save(passengerRequest);
+        }
+    }
+    @PostMapping("/requestMatch")
+    public String requestMatching(@RequestBody CustomerRequest customerRequest){
+
+        requestDump(customerRequest);
+        return "Request entered in the Database";
     }
 
     //TODO: right now the code is working via a get endpoint from React EventSource.
