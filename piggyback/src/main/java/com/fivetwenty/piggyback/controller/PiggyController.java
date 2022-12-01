@@ -1,12 +1,12 @@
 package com.fivetwenty.piggyback.controller;
 
-import com.fivetwenty.piggyback.model.CustomerRequest;
-import com.fivetwenty.piggyback.model.DriverRequest;
-import com.fivetwenty.piggyback.model.PassengerRequest;
-import com.fivetwenty.piggyback.model.PickupDrop;
+import com.fivetwenty.piggyback.model.*;
 import com.fivetwenty.piggyback.repository.DriverRequestRepository;
 import com.fivetwenty.piggyback.repository.PassengerRequestRepository;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
 import org.apache.logging.log4j.message.Message;
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -30,6 +30,10 @@ public class PiggyController {
 
     @Autowired
     DriverRequestRepository driverRequestRepository;
+
+
+    @Autowired
+    MongoClient mongoClient;
 
     @GetMapping("/")
     public String index(){
@@ -101,12 +105,20 @@ public class PiggyController {
     }
 
 
+    //logic to keep checking the 'matches' collection and keep pushing to client,
+    // if any new entry is added to this passenger.
     @GetMapping("/matches")
     public SseEmitter matches(){
         SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
         sseEmitter.onCompletion(()->System.out.println("SseEmitted completed"));
         sseEmitter.onTimeout(()->System.out.println("SseEmitted completed"));
         sseEmitter.onError((ex)->System.out.println("error " + ex));
+
+        executor.execute(()->{
+            MongoCollection<Document> collection = mongoClient.getDatabase(Constants.dbName).
+                    getCollection(Constants.matchesCollection);
+        });
+
         return sseEmitter;
     }
 

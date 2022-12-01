@@ -69,7 +69,7 @@ public class PiggybackApplication implements CommandLineRunner {
 
 
 
-		//RoutesDataDumper(); 	//ONLY uncomment if you need to insert data again.
+//		RoutesDataDumper(); 	//ONLY uncomment if you need to insert data again.
 
 	}
 
@@ -109,5 +109,6 @@ public class PiggybackApplication implements CommandLineRunner {
 		}catch (Exception e){
 			System.out.println(e);
 		}
+		System.out.println("Completed dumping data");
 	}
 }
