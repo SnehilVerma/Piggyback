@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -51,13 +52,16 @@ public class PiggyController {
         String userId = customerRequest.getUserId();
         String src = customerRequest.getSrc();
         String dst = customerRequest.getDst();
+        Date date = new Date();
 
         System.out.println(customerRequest.getType());
         if (customerRequest.getType().equals("Driver")){
             DriverRequest driverRequest = new DriverRequest(userId, src, dst);
+            driverRequest.setDate(date);
             driverRequestRepository.save(driverRequest);
         } else {
             PassengerRequest passengerRequest = new PassengerRequest(userId, src, dst);
+            passengerRequest.setDate(date);
             passengerRequestRepository.save(passengerRequest);
         }
     }

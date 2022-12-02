@@ -10,6 +10,7 @@ import com.fivetwenty.piggyback.repository.PassengerRequestRepository;
 import com.fivetwenty.piggyback.repository.RoutesRepository;
 import com.fivetwenty.piggyback.repository.UserRepository;
 import com.fivetwenty.piggyback.service.RidePairing;
+import com.fivetwenty.piggyback.service.FlushOldEntries;
 import org.bson.Document;
 import org.jobrunr.jobs.mappers.JobMapper;
 import org.jobrunr.scheduling.JobScheduler;
@@ -50,6 +51,9 @@ public class PiggybackApplication implements CommandLineRunner {
 	@Autowired
 	private RidePairing ridePairing;
 
+	@Autowired
+	private FlushOldEntries flushOldEntries;
+
 	public static void main(String[] args) {
 		SpringApplication.run(PiggybackApplication.class, args);
 		System.out.println("Starting Application");
@@ -59,6 +63,8 @@ public class PiggybackApplication implements CommandLineRunner {
 	@PostConstruct
 	public void init(){
 		jobScheduler.enqueue(()-> ridePairing.executeRidePairing());
+		jobScheduler.enqueue(()-> flushOldEntries.flushOldDriverEntries());
+		jobScheduler.enqueue(()-> flushOldEntries.flushOldPassengerEntries());
 	}
 
 	@Override
