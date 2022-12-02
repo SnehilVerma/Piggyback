@@ -9,7 +9,6 @@ import org.jobrunr.jobs.annotations.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.print.Doc;
 import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -24,6 +23,9 @@ public class RidePairing {
     @Autowired
     MongoClient mongoClient;
 
+    @Autowired
+    Map<String, Map<String, List<List<String>>>> routesMap;
+
 
     private static MongoCollection<Document> routesCollection;
     //logic:
@@ -36,8 +38,6 @@ public class RidePairing {
         System.out.println("pairing started");
         MongoDatabase database = mongoClient.getDatabase("PiggyData");
 
-        //get the routes data and let the object be stored in memory.
-        routesCollection = database.getCollection("Routes");
 
         while(true) {
             try {
@@ -50,10 +50,8 @@ public class RidePairing {
                 MongoCollection<Document> existingMatches = database.getCollection(Constants.matchesCollection);
                 //TODO: put existing matches into mappings hashmap.
 
-                FindIterable<Document> pi = passengerRequestsCollection.find();
-                FindIterable<Document> ri = riderRequestsCollection.find();
-                MongoCursor<Document> pcursor = pi.iterator();
-                MongoCursor<Document> rcursor = ri.iterator();
+                MongoCursor<Document> pcursor = passengerRequestsCollection.find().iterator();
+                MongoCursor<Document> rcursor = riderRequestsCollection.find().iterator();
 
                 try {
                     while(pcursor.hasNext()) {
@@ -105,23 +103,17 @@ public class RidePairing {
     }
 
     private boolean overlappingPathsExist(Document rider,Document passenger){
-        if(routesCollection==null){
+        if(routesMap==null){
             return false;
         }
         String rsrc = (String)rider.get("src");
         String rdst = (String)rider.get("dst");
 
-        Document route = routesCollection.find(eq("source",rsrc)).first();
-        List<Document> destinationMaps = (List<Document>) route.get("mappings");
-        for(Document d : destinationMaps){
-            /*System.out.println(d.get("dest"));*/
-            if(d.get("dest").equals(rdst)){
-                //found the FIRST MATCHING SHORTEST PATH , which has overlapping properties.
-                boolean foundMatch = isOverlapping((List<List<String>>) d.get("paths"), (String) passenger.get("src"), (String) passenger.get("dst"));
-                if(foundMatch){
-                    return true;
-                }
-            }
+        Map<String,List<List<String>>> toDestination = routesMap.get(rsrc);
+        //found the FIRST MATCHING SHORTEST PATH , which has overlapping properties.
+        List<List<String>> paths = toDestination.get(rdst);
+        if(isOverlapping(paths, (String) passenger.get("src"), (String) passenger.get("dst"))){
+            return true;
         }
         return false;
     }
