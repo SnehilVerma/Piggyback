@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-import static com.mongodb.client.model.Filters.eq;
-
 @Component
 public class RidePairing {
 
@@ -26,8 +24,6 @@ public class RidePairing {
     @Autowired
     Map<String, Map<String, List<List<String>>>> routesMap;
 
-
-    private static MongoCollection<Document> routesCollection;
     //logic:
     //every 5 seconds, get data from RiderRequests collection and PassengerRequests collection.
     //Form mappings in a way that a ride can accomodate passengers. Mapping should be of the form
