@@ -51,13 +51,17 @@ public class PiggyController {
         String userId = customerRequest.getUserId();
         String src = customerRequest.getSrc();
         String dst = customerRequest.getDst();
+        LocalDateTime localDateTime = LocalDateTime.now();
+
 
         System.out.println(customerRequest.getType());
         if (customerRequest.getType().equals("Driver")){
             DriverRequest driverRequest = new DriverRequest(userId, src, dst);
+            driverRequest.setLocalDateTime(localDateTime);
             driverRequestRepository.save(driverRequest);
         } else {
             PassengerRequest passengerRequest = new PassengerRequest(userId, src, dst);
+            passengerRequest.setLocalDateTime(localDateTime);
             passengerRequestRepository.save(passengerRequest);
         }
     }
