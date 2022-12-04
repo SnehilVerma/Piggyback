@@ -14,12 +14,23 @@ public class User implements IUser {
 
     UserType userType = UserType.DEFAULT;
 
+    public String getPassword() {
+        return password;
+    }
 
-    public User(String userId, String userName, Float userRating,UserType userType) {
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    String password = null;
+
+
+    public User(String userId, String userName, Float userRating,UserType userType, String password) {
 //        this.userId = userId;
         this.userName = userName;
         this.userRating = userRating;
         this.userType = userType;
+        this.password = password;
     }
 
     @Override

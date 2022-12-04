@@ -3,8 +3,12 @@ package com.fivetwenty.piggyback.controller;
 import com.fivetwenty.piggyback.model.*;
 import com.fivetwenty.piggyback.repository.DriverRequestRepository;
 import com.fivetwenty.piggyback.repository.PassengerRequestRepository;
+import com.fivetwenty.piggyback.repository.UserRepository;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import org.apache.logging.log4j.message.Message;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Filter;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -31,6 +36,9 @@ public class PiggyController {
 
     @Autowired
     DriverRequestRepository driverRequestRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
 
     @Autowired
@@ -71,6 +79,40 @@ public class PiggyController {
         requestDump(customerRequest);
         return "Request entered in the Database";
     }
+
+    @PostMapping("/registration")
+    public String registrationRequest(@RequestBody User user){
+        try{
+            userRepository.save(user);
+        } catch (Exception e){
+            System.out.println(e);
+            return "User already exist";
+        }
+        return "Registration Completed";
+    }
+
+    @PostMapping("/login")
+    public String loginRequest(@RequestBody User user){
+        MongoDatabase database = mongoClient.getDatabase("PiggyData");
+        String userId = user.getName();
+
+        try{
+            MongoCollection<Document> userCollection = database.getCollection(Constants.usersCollection);
+            Document entry = userCollection.find(Filters.eq("userName", userId)).first();
+            if (entry == null){
+                return "No user found";
+            }
+            String password = (String) entry.get("password");
+             if (password.equals(user.getPassword())){
+                 return "Login Successful";
+             }
+        }catch (Exception e){
+            System.out.println(e);
+            return "Login Failed";
+        }
+        return "Failed";
+    }
+
 
     //TODO: right now the code is working via a get endpoint from React EventSource.
     // Need to figure out how would a post mapping be possible from EventSource on React else we won't be
