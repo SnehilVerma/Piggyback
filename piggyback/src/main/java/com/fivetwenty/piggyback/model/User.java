@@ -12,7 +12,7 @@ public class User implements IUser {
     String userName = null;
     Float userRating = null;
 
-    UserType userType = UserType.DEFAULT;
+    //UserType userType = UserType.DEFAULT;
 
     public String getPassword() {
         return password;
@@ -25,11 +25,10 @@ public class User implements IUser {
     String password = null;
 
 
-    public User(String userId, String userName, Float userRating,UserType userType, String password) {
+    public User(String userId, String userName, Float userRating, String password) {
 //        this.userId = userId;
         this.userName = userName;
         this.userRating = userRating;
-        this.userType = userType;
         this.password = password;
     }
 
@@ -43,8 +42,4 @@ public class User implements IUser {
         return userRating;
     }
 
-    @Override
-    public UserType getUserType() {
-        return userType;
-    }
 }

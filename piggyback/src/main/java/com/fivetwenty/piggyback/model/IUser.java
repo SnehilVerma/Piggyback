@@ -10,7 +10,7 @@ public interface IUser {
     public abstract String getName();
     public abstract Float getRating();
 
-    public abstract UserType getUserType();
+    //public abstract UserType getUserType();
 
 
 

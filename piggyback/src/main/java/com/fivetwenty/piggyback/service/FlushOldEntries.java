@@ -40,18 +40,12 @@ public class FlushOldEntries {
                     while (pcursor.hasNext()) {
                         Document passenger = pcursor.next();
                         String userId = (String) passenger.get("userId");
-//                        String src = (String) passenger.get("src");
-//                        String dst = (String) passenger.get("dst");
                         Date requestTime = (Date) passenger.get("date");
 
                         Date timeNOw = new Date();
                         long timeDiff = timeNOw.getTime() - requestTime.getTime();
 
-//                        PassengerRequest passengerRequest = new PassengerRequest(userId, src, dst);
-//                        passengerRequest.setDate(requestTime);
-//                        passengerRequest.setType("Passenger");
-
-                        if (timeDiff >= 5) {
+                        if (timeDiff >= 300000) {
                             passengerRequestsCollection.deleteOne(new Document("userId", userId));
                         }
                     }
@@ -77,18 +71,12 @@ public class FlushOldEntries {
                     while (rcursor.hasNext()) {
                         Document driver = rcursor.next();
                         String userId = (String) driver.get("userId");
-//                        String src = (String) driver.get("src");
-//                        String dst = (String) driver.get("dst");
                         Date requestTime = (Date) driver.get("date");
 
                         Date timeNOw = new Date();
                         long timeDiff = timeNOw.getTime() - requestTime.getTime();
 
-//                        DriverRequest driverRequest = new DriverRequest(userId, src, dst);
-//                        driverRequest.setDate(requestTime);
-//                        driverRequest.setType("Passenger");
-
-                        if (timeDiff >= 10) {
+                        if (timeDiff >= 600000) {
                             riderRequestsCollection.deleteOne(new Document("userId", userId));
                         }
                     }

@@ -81,8 +81,8 @@ public class PiggybackApplication implements CommandLineRunner {
 
 	//TODO: Sample code 1
 	public void UserDumper(){
-		User user1 = new User("","Snehil Verma",0.0f, IUser.UserType.DRIVER, "aaaa");
-		User user2 = new User("","Piusha G",0.0f, IUser.UserType.PASSENGER, "bbbbb");
+		User user1 = new User("","Snehil Verma",0.0f, "aaaa");
+		User user2 = new User("","Piusha G",0.0f, "bbbbb");
 		userRepository.save(user1);
 		userRepository.save(user2);
 		System.out.println("Users saved");
