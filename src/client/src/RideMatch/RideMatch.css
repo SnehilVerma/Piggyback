@@ -13,6 +13,7 @@
     width  : 150px;
     height : 160px;
     margin: 0 0 30px 8px;
+    align-items: center;
     /*text-transform: uppercase;*/
 }
 .ride-list {
@@ -25,12 +26,18 @@
     font-size: 20px;
     font-weight: 700;
     line-height: 64px;
-    text-align: left;
     margin: 0 0 0 8px;
+    text-align: center;
     /*text-transform: uppercase;*/
 }
 .ride-list-accept-btn{
     color: #111;
     background: #5f9ea0;
+}
+
+
+.ride-list-content{
+    margin-left: auto;
+    width: 56%;
 }
 

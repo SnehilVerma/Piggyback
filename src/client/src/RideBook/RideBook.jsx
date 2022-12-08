@@ -13,7 +13,7 @@ function submitRide(response){
 function template() {
   return (
             <div className="ride-book">
-              <h1>RideBook</h1>
+              <h1 className="title">RideBook</h1>
                 <Map className="center-text"/>
                     <div className="src-dest center-text">
                         <div className="center-text">
@@ -34,7 +34,7 @@ function template() {
                                         renderInput={(params) => <TextField {...params} label="Destination" />}
                                       />
                         </div>
-                        <div className="center-text">
+                        <div className="center-text-button">
                             <Button variant="contained" onClick={submitRide()}>Find Ride</Button>
                         </div>
                     </div>

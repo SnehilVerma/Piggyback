@@ -1,14 +1,22 @@
 #register
 {
- margin:0px auto;
+ /*margin:0px auto;*/
 }
 .ride-book{
-    margin-top: 5px;
+    /*margin-top: 5px;*/
+    margin-left: auto;
+    width: 62%;
 }
 .src-dest {
     margin-top: 29px;
 }
-.center-text{
-        text-align: center;
+.center-text-button{
+    text-align: center;
+    margin-left: -270px;
+    width: 100%;
 
+}
+
+.title{
+    margin-left: 20px;
 }
