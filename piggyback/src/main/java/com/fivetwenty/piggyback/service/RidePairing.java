@@ -121,7 +121,7 @@ public class RidePairing {
             //psource -> pdestination.
             int sourceIndex = path.indexOf(psource);
             int destIndex = path.indexOf(pdestination);
-            if(sourceIndex>0 && destIndex>0 && destIndex > sourceIndex){
+            if(sourceIndex>=0 && destIndex>=0 && destIndex > sourceIndex){
                 //both indices found and source comes before destination.
                 return true;
             }
