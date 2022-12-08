@@ -163,14 +163,27 @@ public class PiggyController {
         executor.execute(()->{
 
             try {
-                for(int i=0;i<15;i++) {
+                for(int i=0;i<Constants.matchPushTimeoutConstant;i++) {
                     MongoCollection<Document> matchesCollection = mongoClient.getDatabase(Constants.dbName).
                             getCollection(Constants.matchesCollection);
 
+                    MongoCollection<Document> riderRequestsCollection = mongoClient.getDatabase(Constants.dbName).
+                            getCollection(Constants.riderRequestsCollection);
+
+
                     Document matchArray = matchesCollection.find(Filters.eq("userId", userId)).first();
+
+
                     List<Document> resultMatches = new ArrayList<>();
-                    List<Document> matches = (List<Document>) matchArray.get("matches");
-                    resultMatches.addAll(matches);
+                    List<String> matches = (List<String>) matchArray.get("matches");
+                    for(String riderMatch : matches){
+                        Document d =new Document();
+                        Document currRider = riderRequestsCollection.find(Filters.eq("userId", riderMatch)).first();
+                        d.put("userId",riderMatch);
+                        d.put("src",currRider.get("src"));
+                        d.put("dst",currRider.get("dst"));
+                        resultMatches.add(d);
+                    }
                     sseEmitter.send(resultMatches);
                     Thread.sleep(1000);
                 }
