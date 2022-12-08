@@ -2,10 +2,12 @@ import "./RideBook.css";
 import React from "react";
 import Map from "./Map/Map.js";
 import {Button, Autocomplete, TextField, Grid} from '@mui/material';
+import {Link } from "react-router-dom";
 
-const srcList = ["a", "b"];
-const destList = ["a", "b"];
+const srcList = ["142 Brittany Mnr Dr", "171 Brittany Mnr Dr"];
+const destList = ["337 Russel St", "375 Russel St"];
 const params = {};
+const user = ["Driver", "Passenger"];
 
 function submitRide(response){
     console.log(response)
@@ -13,9 +15,18 @@ function submitRide(response){
 function template() {
   return (
             <div className="ride-book">
-              <h1 className="title">RideBook</h1>
-                <Map className="center-text"/>
+              <h1 className="title">Book a Ride</h1>
+                <Map className="center-text-map"/>
                     <div className="src-dest center-text">
+                        <div className="center-text">
+                            <Autocomplete
+                                disablePortal
+                                id="user"
+                                options={user}
+                                sx={{ width: 300, textAlign: "center" , display: "block"}}
+                                renderInput={(params) => <TextField {...params} label="Ride Type" />}
+                            />
+                        </div>
                         <div className="center-text">
                                       <Autocomplete
                                         disablePortal
@@ -34,8 +45,11 @@ function template() {
                                         renderInput={(params) => <TextField {...params} label="Destination" />}
                                       />
                         </div>
-                        <div className="center-text-button">
-                            <Button variant="contained" onClick={submitRide()}>Find Ride</Button>
+                        <div className="center-text-btn">
+                            <Link to="/RideMatch">
+                            <Button variant="contained">Find Ride</Button>
+                                {/*<Button variant="contained" onClick={submitRide()}>Find Ride</Button>*/}
+                            </Link>
                         </div>
                     </div>
             </div>

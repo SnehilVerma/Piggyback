@@ -1,6 +1,7 @@
 import "./RideConfirm.css";
 import React from "react";
 import { Avatar, Button } from '@mui/material';
+import {Link } from "react-router-dom";
 
 
 
@@ -12,7 +13,7 @@ function RideDetails(id, driver, pickup, dropoff, phone) {
     this.phone = phone;
 }
 
-const ride = new RideDetails("1", "Human Being", "A", "B", "(123)456-7890", "ride@example.com");
+const ride = new RideDetails("1", "Human Being", "142 Brittany Mnr Dr", "337 Russel St", "(123)456-7890", "ride@example.com");
 
 function stringAvatar(name) {
     return {
@@ -63,7 +64,10 @@ function template() {
             <div className="ride-details">
                 <p className="ride-from"><span>From: </span>{ride.pickup ? ride.pickup : ''}</p>
                 <p className="ride-to"><span>To: </span>{ride.dropoff ? ride.dropoff : ''}</p>
-                <Button variant="contained" className="ride-finish" onClick={finishRide}>Finish Ride</Button>
+                {/*<Button variant="contained" className="ride-finish" onClick={finishRide}>Finish Ride</Button>*/}
+                <Link to="/RideBook">
+                    <Button variant="contained" className="ride-finish">Finish Ride</Button>
+                </Link>
             </div>
         </div>
         </div>
