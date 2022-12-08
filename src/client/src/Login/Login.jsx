@@ -1,11 +1,18 @@
 import "./Login.css";
 import React from "react";
 import MediaQuery from 'react-responsive';
+import {Button} from '@mui/material';
+
+
+
+function submitLogin(){
+    console.log("response")
+}
 
 const Device = () => (
     <div>
         <MediaQuery minWidth={1224}>
-          <p>You are a desktop or laptop</p>
+          {/*<p>You are a desktop or laptop</p>*/}
           <MediaQuery minWidth={1824}>
             <p>You also have a huge screen</p>
           </MediaQuery>
@@ -38,9 +45,10 @@ function Login() {
           />
       </div>
       <div>
-          <input
-            type="submit" value="Submit"
-          />
+          {/*<input*/}
+          {/*  type="submit" value="Submit"*/}
+          {/*/>*/}
+          <Button variant="contained" onClick={submitLogin()}>Login</Button>
       </div>
     </form>
     )

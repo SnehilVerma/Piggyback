@@ -11,13 +11,15 @@ import '@fontsource/roboto/700.css';
 // import here the component you want to render
 import Login from "./Login/Login.js";
 import RideBook from "./RideBook/RideBook.js"
+import RideMatch from "./RideMatch";
+import RideConfirm from "./RideConfirm";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 // Add here the name of the component you want to render - For Eg. RideBook
 root.render(
   <React.StrictMode>
-    <RideBook />
+    <Login/><RideBook/><RideMatch/><RideConfirm/>
   </React.StrictMode>
 );
 
