@@ -51,10 +51,9 @@ const rides = [ride1, ride2, ride3]
 
 
 const acceptRide = (request) => {
-    // <Link to = "/RideConfirm"></Link>
     const accept = window.confirm('Do you want to confirm this ride?');
     if (accept) {
-        console.log(request);
+        window.location = "/RideConfirm";
     }
 }
 
@@ -71,8 +70,7 @@ const renderRideList = () => {
                     <p className="ride-list-result-driver"><span>Name: </span>{request.driver  ? request.driver : ''}</p>
                     <p className="ride-list-result-from"><span>From: </span>{request.from  ? request.from : ''}</p>
                     <p className="ride-list-result-to"><span>To: </span>{request.to ? request.to  : ''}</p>
-                    {/*<Button variant="contained" className="ride-list-accept-btn" onClick={() => acceptRide(request)}>Book</Button>*/}
-                    <Link to="/RideConfirm"><Button variant="contained" className="ride-list-accept-btn">Book</Button></Link>
+                    <Button variant="contained" className="ride-list-accept-btn" onClick={() => acceptRide(request)}>Book</Button>
                 </div>
             </div>
         ))

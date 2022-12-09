@@ -2,6 +2,8 @@ import "./RideConfirm.css";
 import React from "react";
 import { Avatar, Button } from '@mui/material';
 import {Link } from "react-router-dom";
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
 
 
 
@@ -43,17 +45,26 @@ function stringToColor(string) {
 }
 
 
-const updateRide = (ride) => {
-        console.log(ride);
-    }
+// const updateRide = (ride) => {
+//         console.log(ride);
+//     }
 
 
     const finishRide = (ride) => {
         const finish = window.confirm('Do you want to finish this ride?');
         if (finish) {
-            updateRide(ride);
+            window.location = "/RideBook";
+            //Does not pass state
         }
     }
+
+function rating() {
+    return (
+        <Stack spacing={1}>
+            <Rating name="half-rating" defaultValue={0} precision={0.5}/>
+        </Stack>
+    )
+}
 
 function template() {
     return (<div className="ride">
@@ -64,10 +75,7 @@ function template() {
             <div className="ride-details">
                 <p className="ride-from"><span>From: </span>{ride.pickup ? ride.pickup : ''}</p>
                 <p className="ride-to"><span>To: </span>{ride.dropoff ? ride.dropoff : ''}</p>
-                {/*<Button variant="contained" className="ride-finish" onClick={finishRide}>Finish Ride</Button>*/}
-                <Link to="/RideBook">
-                    <Button variant="contained" className="ride-finish">Finish Ride</Button>
-                </Link>
+                <Button variant="contained" className="ride-finish" onClick={finishRide}>Finish Ride</Button>
             </div>
         </div>
         </div>
