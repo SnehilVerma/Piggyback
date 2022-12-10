@@ -27,7 +27,7 @@ import java.util.concurrent.Executors;
 import java.util.logging.Filter;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 public class PiggyController {
 
     //TODO: need to check which concrete object to assign to ExecutorService interface.
