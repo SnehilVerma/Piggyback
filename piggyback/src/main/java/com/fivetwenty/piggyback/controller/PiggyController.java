@@ -200,4 +200,14 @@ public class PiggyController {
         return sseEmitter;
     }
 
+
+    //TODO: This api will be used by the drivers to get to know which passenger confirmed the ride.
+    //For now we'll just wait for the first entry to populate the BookedRide collection, and close the sse emitter.
+    //In short , as soon as someone books this driver ( userId ) , we'll send an event to the driver and update their UI.
+    @GetMapping("/awaitConfirmation/{userId}")
+    public SseEmitter awaitConfirmation(@PathVariable String userId){
+        return null;
+    }
+
+
 }
