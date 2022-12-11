@@ -40,7 +40,7 @@ public class FlushOldEntries {
                         Date timeNOw = new Date();
                         long timeDiff = timeNOw.getTime() - requestTime.getTime();
 
-                        if (timeDiff >= 300000) {
+                        if (timeDiff >= Constants.passengerRequestTimeoutConstant) {
                             passengerRequestsCollection.deleteOne(new Document("userId", userId));
                         }
                     }
@@ -71,7 +71,7 @@ public class FlushOldEntries {
                         Date timeNOw = new Date();
                         long timeDiff = timeNOw.getTime() - requestTime.getTime();
 
-                        if (timeDiff >= 600000) {
+                        if (timeDiff >= Constants.driverRequestTimeoutConstant) {
                             riderRequestsCollection.deleteOne(new Document("userId", userId));
                         }
                     }
