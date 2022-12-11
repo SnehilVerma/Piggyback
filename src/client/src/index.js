@@ -8,6 +8,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import ReactDom from 'react-dom';
+import { render } from "react-dom";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // import here the component you want to render
@@ -21,12 +24,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
         <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/RideBook" element={<RideBook />} />
-            <Route path="/RideMatch" element={<RideMatch />} />
-            <Route path="/RideConfirm" element={<RideConfirm />} />
+            <Route exact path="/" element={<Login/>} />
+            <Route path="/RideBook" element={<RideBook/>} />
+            <Route path="/RideMatch" element={<RideMatch/>} />
+            <Route path="/RideConfirm" element={<RideConfirm/>} />
         </Routes>
-    </BrowserRouter>
+    </BrowserRouter>,
 );
 // Add here the name of the component you want to render - For Eg. RideBook
 // root.render(

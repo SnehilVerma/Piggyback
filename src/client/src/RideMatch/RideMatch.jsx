@@ -1,13 +1,16 @@
 import "./RideMatch.css";
 import React from "react";
 import { Avatar, Button } from '@mui/material';
+import {Link } from "react-router-dom";
 
 
-function Ride(id, driver, to, from) {
+
+function Ride(id, driver, to, from, rating) {
     this.id = id;
     this.driver = driver;
     this.to = to;
     this.from = from;
+    this.rating = rating
 }
 
 function stringAvatar(name) {
@@ -38,18 +41,19 @@ function stringToColor(string) {
 
 
 
-const ride1 = new Ride("1", "Human Being", "Destination", "Source");
-const ride2 = new Ride("2", "Driver Person", "Destination", "Source");
-const ride3 = new Ride("3", "Ride Provider", "Destination", "Source");
+const ride1 = new Ride("1", "Human Being", "280 Russel St", "352 E Hadley Rd", 4);
+const ride2 = new Ride("2", "Driver Person", "310 Russel St", "22 Whippletree Ln", 2.5);
+const ride3 = new Ride("3", "Ride Provider", "191 Russel St", "44 South Point Dr", 1);
 
 const rides = [ride1, ride2, ride3]
 // const rides = []
 
 
+
 const acceptRide = (request) => {
     const accept = window.confirm('Do you want to confirm this ride?');
     if (accept) {
-        console.log(request);
+        window.location = "/RideConfirm";
     }
 }
 
@@ -59,6 +63,10 @@ const renderRideList = () => {
             <div className="ride-list-result-item" key={request.id}>
                 <div className="ride-list-result-item-individual">
                     <Avatar {...stringAvatar(request.driver)} />
+                    <p className="ride-list-driver-rating">
+                    <span>{request.rating}</span>
+                    <span className="star">&#9733;</span>
+                    </p>
                     <p className="ride-list-result-driver"><span>Name: </span>{request.driver  ? request.driver : ''}</p>
                     <p className="ride-list-result-from"><span>From: </span>{request.from  ? request.from : ''}</p>
                     <p className="ride-list-result-to"><span>To: </span>{request.to ? request.to  : ''}</p>
@@ -73,10 +81,8 @@ const renderRideList = () => {
 function template() {
     return (
         <div className="ride-list">
-            <div className="ride-list-container">
-                <div className="ride-list-title">Ride Options</div>
-            </div>
             <div className="ride-list-content">
+                <div className="ride-list-title">Ride Options</div>
                 {renderRideList()}
             </div>
         </div>

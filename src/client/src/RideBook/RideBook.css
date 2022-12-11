@@ -8,15 +8,25 @@
     width: 62%;
 }
 .src-dest {
-    margin-top: 29px;
+    margin-top: 1%;
 }
-.center-text-button{
+.center-text-btn{
     text-align: center;
-    margin-left: -270px;
+    margin-left: -40%;
     width: 100%;
+    margin-top: 2%;
+
+}
+
+.center-text-map{
+    margin-top: -2%;
 
 }
 
 .title{
-    margin-left: 20px;
+    color: #111;
+    font-family: 'OCR A Std', monospace;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 64px;
 }

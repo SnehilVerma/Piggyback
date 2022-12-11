@@ -1,6 +1,9 @@
 import "./RideConfirm.css";
 import React from "react";
 import { Avatar, Button } from '@mui/material';
+import {Link } from "react-router-dom";
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
 
 
 
@@ -12,7 +15,7 @@ function RideDetails(id, driver, pickup, dropoff, phone) {
     this.phone = phone;
 }
 
-const ride = new RideDetails("1", "Human Being", "A", "B", "(123)456-7890", "ride@example.com");
+const ride = new RideDetails("1", "Human Being", "142 Brittany Mnr Dr", "337 Russel St", "(123)456-7890", "ride@example.com");
 
 function stringAvatar(name) {
     return {
@@ -42,17 +45,26 @@ function stringToColor(string) {
 }
 
 
-const updateRide = (ride) => {
-        console.log(ride);
-    }
+// const updateRide = (ride) => {
+//         console.log(ride);
+//     }
 
 
     const finishRide = (ride) => {
         const finish = window.confirm('Do you want to finish this ride?');
         if (finish) {
-            updateRide(ride);
+            window.location = "/RideBook";
+            //Does not pass state
         }
     }
+
+function rating() {
+    return (
+        <Stack spacing={1}>
+            <Rating name="half-rating" defaultValue={0} precision={0.5}/>
+        </Stack>
+    )
+}
 
 function template() {
     return (<div className="ride">
