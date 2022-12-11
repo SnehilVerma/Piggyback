@@ -21,11 +21,6 @@ public class FlushOldEntries {
     @Autowired
     MongoClient mongoClient;
 
-//    @Autowired
-//    PassengerRequestRepository passengerRequestRepository;
-//
-//    @Autowired
-//    DriverRequestRepository driverRequestRepository;
 
     @Job(name = "Flush old entries for Passenger", retries = 2)
     public void flushOldPassengerEntries() {

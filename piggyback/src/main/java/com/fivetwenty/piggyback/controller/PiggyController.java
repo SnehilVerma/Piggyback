@@ -27,7 +27,7 @@ import java.util.concurrent.Executors;
 import java.util.logging.Filter;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins="*")
 public class PiggyController {
 
     //TODO: need to check which concrete object to assign to ExecutorService interface.
@@ -179,10 +179,12 @@ public class PiggyController {
                     for(String riderMatch : matches){
                         Document d =new Document();
                         Document currRider = riderRequestsCollection.find(Filters.eq("userId", riderMatch)).first();
-                        d.put("userId",riderMatch);
-                        d.put("src",currRider.get("src"));
-                        d.put("dst",currRider.get("dst"));
-                        resultMatches.add(d);
+                        if(currRider!=null) {
+                            d.put("userId", riderMatch);
+                            d.put("src", currRider.get("src"));
+                            d.put("dst", currRider.get("dst"));
+                            resultMatches.add(d);
+                        }
                     }
                     sseEmitter.send(resultMatches);
                     Thread.sleep(1000);

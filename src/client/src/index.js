@@ -17,24 +17,23 @@ import RideMatch from "./RideMatch/RideMatch.js";
 import RideConfirm from "./RideConfirm/RideConfirm.js";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-//
-// ReactDOM.render(
-//     <BrowserRouter>
-//         <Routes>
-//             <Route exact path="/" component={<Login/>} />
-//             <Route path="/RideBook" component={<RideBook/>} />
-//             <Route path="/RideMatch" component={<RideMatch/>} />
-//             <Route path="/RideConfirm" component={<RideConfirm/>} />
-//         </Routes>
-//     </BrowserRouter>,
-//     root
-// );
-// Add here the name of the component you want to render - For Eg. RideBook
+
 root.render(
-  <React.StrictMode>
-    <Login/>
-  </React.StrictMode>
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/RideBook" element={<RideBook />} />
+            <Route path="/RideMatch" element={<RideMatch />} />
+            <Route path="/RideConfirm" element={<RideConfirm />} />
+        </Routes>
+    </BrowserRouter>
 );
+// Add here the name of the component you want to render - For Eg. RideBook
+// root.render(
+//   <React.StrictMode>
+//     <Login/>
+//   </React.StrictMode>
+// );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
