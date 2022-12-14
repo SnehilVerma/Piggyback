@@ -3,6 +3,7 @@ package com.fivetwenty.piggyback.controller;
 import com.fivetwenty.piggyback.model.*;
 import com.fivetwenty.piggyback.repository.DriverRequestRepository;
 import com.fivetwenty.piggyback.repository.PassengerRequestRepository;
+import com.fivetwenty.piggyback.repository.RideRequestWaitingRepository;
 import com.fivetwenty.piggyback.repository.UserRepository;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -42,6 +43,9 @@ public class PiggyController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RideRequestWaitingRepository rideRequestWaitingRepository;
 
 
     @Autowired
@@ -200,13 +204,68 @@ public class PiggyController {
         return sseEmitter;
     }
 
+    @PostMapping("/rideRequestToDriver")
+    public String rideRequestToDriver(@RequestBody RideRequestWaiting rideRequestWaiting){
+        rideRequestWaiting.setStatus(false);
+        try{
+            rideRequestWaitingRepository.save(rideRequestWaiting);
+        } catch (Exception e) {
+            System.out.println(e);
+            return "Error";
+        }
+        return "Okay";
+    }
 
     //TODO: This api will be used by the drivers to get to know which passenger confirmed the ride.
     //For now we'll just wait for the first entry to populate the BookedRide collection, and close the sse emitter.
     //In short , as soon as someone books this driver ( userId ) , we'll send an event to the driver and update their UI.
-    @GetMapping("/awaitConfirmation/{userId}")
-    public SseEmitter awaitConfirmation(@PathVariable String userId){
-        return null;
+    @GetMapping("/awaitConfirmation/{driverId}")
+    public SseEmitter awaitConfirmation(@PathVariable String driverId){
+        SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
+        sseEmitter.onCompletion(()->System.out.println("SseEmitted completed"));
+        sseEmitter.onTimeout(()->System.out.println("SseEmitted completed"));
+        sseEmitter.onError((ex)->System.out.println("error " + ex));
+
+        executor.execute(()->{
+
+            try {
+                for(int i=0;i<Constants.matchPushTimeoutConstant;i++) {
+                    MongoCollection<Document> rideRequestWaitingCollection = mongoClient.getDatabase(Constants.dbName).
+                            getCollection(Constants.rideRequestWaitingCollection);
+
+                    MongoCollection<Document> riderRequestsCollection = mongoClient.getDatabase(Constants.dbName).
+                            getCollection(Constants.riderRequestsCollection);
+
+                    List<Document> resultMatches = new ArrayList<>();
+                    MongoCursor<Document> pcursor = rideRequestWaitingCollection.find().iterator();
+                    try{
+                        while (pcursor.hasNext()){
+                            Document waitingRequest = pcursor.next();
+                            String rid = (String)waitingRequest.get("driverId");
+                            if (rid.equals(driverId)){
+                                Document d =new Document();
+                                d.put("passengerId", (String)waitingRequest.get("passengerId"));
+                                d.put("src", (String)waitingRequest.get("src"));
+                                d.put("dst", (String)waitingRequest.get("dst"));
+                                resultMatches.add(d);
+                            }
+                        }
+                    } catch (Exception e){
+                        e.printStackTrace();
+                        sseEmitter.completeWithError(e);
+                    }
+                    sseEmitter.send(resultMatches);
+                    Thread.sleep(1000);
+                }
+            }catch(Exception ex){
+                ex.printStackTrace();
+                sseEmitter.completeWithError(ex);
+            }
+            sseEmitter.complete();
+        });
+
+        System.out.println("exiting matches sse");
+        return sseEmitter;
     }
 
 
