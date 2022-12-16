@@ -23,7 +23,7 @@ function Template(){
 
               eventSource.onmessage = (event) => {
                 console.log("result",event.data);
-                setData(old => [...old,JSON.parse(event.data)])
+                setData(old => [JSON.parse(event.data)])
               }
 
               eventSource.onerror = (event) => {
