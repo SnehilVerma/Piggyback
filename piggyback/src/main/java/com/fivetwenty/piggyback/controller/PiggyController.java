@@ -93,14 +93,14 @@ public class PiggyController {
     }
 
     @PostMapping("/registration")
-    public String registrationRequest(@RequestBody User user){
+    public ResponseEntity<String> registrationRequest(@RequestBody User user){
         try{
             userRepository.save(user);
         } catch (Exception e){
             System.out.println(e);
-            return "User already exist";
+            return new ResponseEntity<>("Found exception", HttpStatus.EXPECTATION_FAILED);
         }
-        return "Registration Completed";
+        return new ResponseEntity<>("Registration Successful", HttpStatus.OK);
     }
 
     @PostMapping("/login")
@@ -120,7 +120,7 @@ public class PiggyController {
              }
         }catch (Exception e){
             System.out.println(e);
-            return new ResponseEntity<>("Found exception", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Found exception", HttpStatus.EXPECTATION_FAILED);
         }
         return new ResponseEntity<>("Process Completed", HttpStatus.NOT_FOUND);
     }
