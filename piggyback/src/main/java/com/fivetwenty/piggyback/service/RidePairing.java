@@ -111,8 +111,14 @@ public class RidePairing {
         String rdst = (String)rider.get("dst");
 
         Map<String,List<List<String>>> toDestination = routesMap.get(rsrc);
+        if(toDestination==null){
+            return false;
+        }
         //found the FIRST MATCHING SHORTEST PATH , which has overlapping properties.
         List<List<String>> paths = toDestination.get(rdst);
+        if(paths==null){
+            return false;
+        }
         if(isOverlapping(paths, (String) passenger.get("src"), (String) passenger.get("dst"))){
             return true;
         }
