@@ -16,6 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Beans configuration for Storage Provider, MongoDB, and Map
+ */
 @Configuration
 public class Beans {
 

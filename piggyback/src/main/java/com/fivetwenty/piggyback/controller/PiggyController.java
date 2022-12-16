@@ -27,10 +27,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Filter;
 
+/**
+ * Main Controller of the App containing the API endpoints mapping which
+ * calls the respective executor methods
+ */
 @RestController
 @CrossOrigin(origins="*")
 public class PiggyController {
-
     //TODO: need to check which concrete object to assign to ExecutorService interface.
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 

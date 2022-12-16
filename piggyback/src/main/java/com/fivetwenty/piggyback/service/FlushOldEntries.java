@@ -16,12 +16,22 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * The Mongo client.
+ *  Module to flush all the old entries
+ *  When a driver/passenger requests for a ride, the job retries for 2 times
+ *  After which the request would be flushed out and the user would have
+ *  to try to find a match again after some time
+ */
 @Component
 public class FlushOldEntries {
     @Autowired
     MongoClient mongoClient;
 
 
+    /**
+     * Flush old passenger entries.
+     */
     @Job(name = "Flush old entries for Passenger", retries = 2)
     public void flushOldPassengerEntries() {
         MongoDatabase database = mongoClient.getDatabase("PiggyData");
@@ -53,6 +63,9 @@ public class FlushOldEntries {
         }
     }
 
+    /**
+     * Flush old driver entries.
+     */
     @Job(name = "Flush old entries for Driver", retries = 2)
     public void flushOldDriverEntries() {
         MongoDatabase database = mongoClient.getDatabase("PiggyData");

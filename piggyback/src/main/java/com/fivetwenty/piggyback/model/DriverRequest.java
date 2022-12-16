@@ -5,6 +5,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
+/**
+ * Module to handle all the driver requests
+ * Contains getter and setter methods for date
+ */
 @Document("DriverRequest")
 public class DriverRequest extends CustomerRequest{
     @Id

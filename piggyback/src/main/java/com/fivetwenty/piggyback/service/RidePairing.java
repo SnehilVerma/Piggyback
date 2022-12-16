@@ -11,6 +11,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+/**
+ * Module to find Ride Pairs and match passenger requests with
+ * Potential drivers or driver requests with potential passengers
+ * by finding the best overlapped path for passenger and driver
+ */
 @Component
 public class RidePairing {
 
