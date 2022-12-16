@@ -8,6 +8,7 @@ import RideBook from "./RideBook/RideBook";
 import RideMatch from "./RideMatch/RideMatch";
 import RideConfirm from "./RideConfirm/RideConfirm";
 import HomePage from "./HomePage/HomePage";
+import Register from "./Register/Register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import { eventSource } from 'react';
 
@@ -112,7 +113,7 @@ return (
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<HomePage/>} />
-          <Route exact path="/register" element={<Login/>} />
+          <Route exact path="/register" element={<Register/>} />
           <Route exact path="/login" element={<Login/>} />
           <Route path="/RideBook" element={<RideBook/>} />
           <Route path="/RideMatch" element={<RideMatch/>} />
