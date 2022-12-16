@@ -6,6 +6,7 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useContext } from 'react';
 import UserContext from '../Context';
+import { useLocation } from "react-router-dom";
 
 
 
@@ -17,14 +18,12 @@ function RideDetails(id, driver, pickup, dropoff, phone) {
     this.phone = phone;
 }
 
-//  const ride = new RideDetails("1", "Human Being", "142 Brittany Mnr Dr", "337 Russel St", "(123)456-7890", "ride@example.com");
-
 function stringAvatar(name) {
     return {
         sx: {
             bgcolor: stringToColor(name),
         },
-        children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+//         children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };
 }
 function stringToColor(string) {
@@ -47,11 +46,6 @@ function stringToColor(string) {
 }
 
 
-// const updateRide = (ride) => {
-//         console.log(ride);
-//     }
-
-
 const finishRide = (ride) => {
     const finish = window.confirm('Do you want to finish this ride?');
     if (finish) {
@@ -69,19 +63,19 @@ function rating() {
 }
 
 function Template() {
-    // console.log("printing");
-    const ride = useContext(UserContext);
-    console.log(ride);
-    console.log(ride.driver);
-    console.log(ride.phone);
+//     const ride = useContext(UserContext);
+//  PHONE NUMBER IS MISSING ???
+    const location = useLocation();
+    const ride = location.state;
+
     return (<div className="ride">
             <div className="ride-title">Ride Details</div>
             <div className="ride-container">
-                <Avatar {...stringAvatar(ride.driver)} />
-                <p className="ride-user-info">{ride.driver} - {ride.phone}</p>
+                <Avatar {...stringAvatar(ride.userId)} />
+                <p className="ride-user-info">{ride.userId} - {ride.phone}</p>
             <div className="ride-details">
-                <p className="ride-from"><span>From: </span>{ride.pickup ? ride.pickup : ''}</p>
-                <p className="ride-to"><span>To: </span>{ride.dropoff ? ride.dropoff : ''}</p>
+                <p className="ride-from"><span>From: </span>{ride.src ? ride.src : ''}</p>
+                <p className="ride-to"><span>To: </span>{ride.dst ? ride.dst : ''}</p>
                 <Button variant="contained" className="ride-finish" onClick={finishRide}>Finish Ride</Button>
             </div>
         </div>

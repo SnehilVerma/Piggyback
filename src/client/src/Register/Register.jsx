@@ -27,7 +27,7 @@ function Template() {
                    navigate('/Login', {state:state})
                }
             )
-            .then(data => setState({userId: data.id}))
+            .then(data => setState({userName: data.id}))
             .catch(function(error) {
    //                 setError('User already exists!);
                console.error('User already exists!');
