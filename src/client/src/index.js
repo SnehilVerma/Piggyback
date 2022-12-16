@@ -8,8 +8,8 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import ReactDom from 'react-dom';
-import { render } from "react-dom";
+import { useState, useEffect } from 'react';
+import Context from './Context';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -21,22 +21,24 @@ import RideConfirm from "./RideConfirm/RideConfirm.js";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-root.render(
-    <BrowserRouter>
-        <Routes>
-            <Route exact path="/" element={<Login/>} />
-            <Route path="/RideBook" element={<RideBook/>} />
-            <Route path="/RideMatch" element={<RideMatch/>} />
-            <Route path="/RideConfirm" element={<RideConfirm/>} />
-        </Routes>
-    </BrowserRouter>,
-);
-// Add here the name of the component you want to render - For Eg. RideBook
 // root.render(
-//   <React.StrictMode>
-//     <Login/>
-//   </React.StrictMode>
+//     <BrowserRouter>
+//         <Routes>
+//             <Route exact path="/" element={<Login/>} />
+//             <Route path="/RideBook" element={<RideBook/>} />
+//             <Route path="/RideMatch" element={<RideMatch/>} />
+//             <Route path="/RideConfirm" element={<RideConfirm/>} />
+//         </Routes>
+//     </BrowserRouter>,
 // );
+
+
+// Add here the name of the component you want to render - For Eg. RideBook
+root.render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
