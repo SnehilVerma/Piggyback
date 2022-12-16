@@ -42,19 +42,52 @@ public class PiggyControllerTests {
     @Test
     public void testloginSuccessful() {
         User user = new User("testuser", "testpassword", 5f, "aaaa");
-        //Document entry = new Document("userName", "testuser").append("password", "testpassword");
-        BasicDBObject document = new BasicDBObject();
+        //Document document = new Document("userName", "testuser").append("password", "testpassword");
+        Document document = new Document();
         document.put("userId", "testUser");
         document.put("userName", "testpassword");
         document.put("userRating", 5f);
         document.put("password", "aaaa");
         when(mongoClient.getDatabase("PiggyData")).thenReturn(database);
         when(database.getCollection(Constants.usersCollection)).thenReturn(userCollection);
-        when(userCollection.find(Filters.eq("userName", "testuser")).first()).thenReturn((Document) document);
+        when(userCollection.find(Filters.eq("userName", "testuser")).first()).thenReturn(document);
 
         String result = loginController.loginRequest(user);
         assertEquals("Login Successful", result);
     }
 
+    @Test
+    public void testloginFailure() {
+        User user = new User("testuser", "testpassword", 5f, "bbbb");
+        //Document document = new Document("userName", "testuser").append("password", "testpassword");
+        Document document = new Document();
+        document.put("userId", "testUser");
+        document.put("userName", "testpassword");
+        document.put("userRating", 5f);
+        document.put("password", "aaaa");
+        when(mongoClient.getDatabase("PiggyData")).thenReturn(database);
+        when(database.getCollection(Constants.usersCollection)).thenReturn(userCollection);
+        when(userCollection.find(Filters.eq("userName", "testuser")).first()).thenReturn(document);
+
+        String result = loginController.loginRequest(user);
+        assertEquals("Login Failed", result);
+    }
+
+    @Test
+    public void testloginInvalidUser() {
+        User user = new User("notValidUser", "testpassword", 5f, "bbbb");
+        //Document document = new Document("userName", "testuser").append("password", "testpassword");
+        Document document = new Document();
+        document.put("userId", "testUser");
+        document.put("userName", "testpassword");
+        document.put("userRating", 5f);
+        document.put("password", "aaaa");
+        when(mongoClient.getDatabase("PiggyData")).thenReturn(database);
+        when(database.getCollection(Constants.usersCollection)).thenReturn(userCollection);
+        when(userCollection.find(Filters.eq("userName", "testuser")).first()).thenReturn(document);
+
+        String result = loginController.loginRequest(user);
+        assertEquals("No user found", result);
+    }
 
 }
