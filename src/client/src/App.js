@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react';
 import React, {Component, useEffect} from "react";
-import Context from './Context';
+import UserContext from './Context';
 import Login from "./Login/Login";
 import RideBook from "./RideBook/RideBook";
 import RideMatch from "./RideMatch/RideMatch";
@@ -11,49 +11,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import { eventSource } from 'react';
 
 
-// class App extends Component{
-//   state = {
-//     pickupdrop : [],
-//     pickupdropstring : ''
-//   };
-
-
-//   async componentDidMount() {
-    
-//     console.log('requesting data');
-//     const requestOptions = {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ pickup : "umass", drop : "boulders" })
-//     };
-//     // const response = await fetch('/queryRoute',requestOptions);
-//     const response = await fetch('http://localhost:8080/queryRoute',requestOptions);
-//     const body = await response.text();
-//     this.setState({pickupdropstring: body})
-//   }
-  
-
-//   render() {
-//     const {pickupdrop} = this.state;
-
-//     return (
-//         <div className="App">
-//           <header className="App-header">
-//             <img src={logo} className="App-logo" alt="logo" />
-//             <div className="App-intro">
-//               <h2>Testing</h2>
-//               {
-//                 <div>
-//                   {this.state.pickupdropstring}
-//                   </div>
-//               }
-//             </div>
-//           </header>
-//         </div>
-//     );
-//   }
-
-// }
 
 // function App() {
 //
@@ -111,35 +68,38 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // }
 // export default App;
 
+
+
 //uncomment from here
-//const currentRide = useState(null);
+
 function App() {
 
+  const currentRide = useState(null);
 
-  //
+  
   // useEffect(() => {
   //   initCurrentRide();
   // }, []);
-  //
-  //
-  // //For testing
-  // function RideDetails(id, driver, pickup, dropoff, phone) {
-  //   this.id = id;
-  //   this.driver = driver;
-  //   this.pickup = pickup;
-  //   this.dropoff = dropoff;
-  //   this.phone = phone;
-  // }
-  //
-  // const ride = new RideDetails("1", "Human Being", "142 Brittany Mnr Dr", "337 Russel St", "(123)456-7890", "ride@example.com");
-  //
-  //
+  
+  
+  //For testing
+  function RideDetails(id, driver, pickup, dropoff, phone) {
+    this.id = id;
+    this.driver = driver;
+    this.pickup = pickup;
+    this.dropoff = dropoff;
+    this.phone = phone;
+  }
+  
+  const ride = new RideDetails("1", "Human Being", "142 Brittany Mnr Dr", "337 Russel St", "(123)456-7890", "ride@example.com");
+  
+  
   // useEffect(() => {
   //   if (currentRide) {
-  //
+  
   //   }
   // }, [currentRide]);
-  //
+  
   // const initCurrentRide = () => {
   //   const currentRide = ride;
   // }
@@ -147,7 +107,7 @@ function App() {
 
 
 return (
-    // <Context.Provider value={{currentRide}}>
+    <UserContext.Provider value={ride}>
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Login/>} />
@@ -156,7 +116,7 @@ return (
           <Route path="/RideConfirm" element={<RideConfirm/>} />
         </Routes>
       </BrowserRouter>//,
-    // </Context.Provider>
+    </UserContext.Provider>
 );
 }
 
