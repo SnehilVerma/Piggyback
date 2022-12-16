@@ -1,12 +1,13 @@
 import "./RideMatch.css";
 import { Avatar, Button } from '@mui/material';
-import {Link } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 import React, {Component, useEffect, useState} from "react";
 
 function Template(){
     const [listening, setListening] = useState(false);
     const [data, setData] = useState([]);
     let eventSource = undefined;
+    const navigate = useNavigate();
 
     useEffect(()=>{
         if(!listening){
@@ -80,7 +81,8 @@ function Template(){
     const acceptRide = (request) => {
         const accept = window.confirm('Do you want to confirm this ride?');
         if (accept) {
-            window.location = "/RideConfirm";
+            navigate('/RideConfirm', {state: request})
+//             window.location = "/RideConfirm";
         }
     }
 

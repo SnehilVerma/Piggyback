@@ -27,7 +27,7 @@ const Template = (props) => {
                 navigate('/RideBook', {state:state})
             }
          )
-         .then(data => setState({userId: data.id}))
+         .then(data => setState({userName: data.id}))
          .catch(function(error) {
 //                 setError('Invalid Username or Password');
             console.error('Invalid Username or Password');
