@@ -6,7 +6,7 @@ import {Link, useNavigate, useLocation } from "react-router-dom";
 
 const Template = (props) => {
   const location = useLocation();
-  const currentUser = location.state.username;
+  const currentUser = location.state.userName;
   let [state, setState] = useState({
     userType: '',
     source: '',
