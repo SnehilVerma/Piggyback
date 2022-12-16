@@ -6,6 +6,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.xml.crypto.Data;
 import java.util.Date;
 
+/**
+ * Module to handle all the passenger requests
+ * Contains getter and setter methods for date
+ */
 @Document("PassengerRequest")
 public class PassengerRequest extends CustomerRequest {
 

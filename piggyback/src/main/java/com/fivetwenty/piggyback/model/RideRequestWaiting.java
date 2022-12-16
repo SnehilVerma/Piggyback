@@ -2,6 +2,10 @@ package com.fivetwenty.piggyback.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Module to handle cases when user has requested a ride and is waiting
+ * Updates the status of the ride once a match is found
+ */
 @Document("RideRequestWaiting")
 public class RideRequestWaiting {
     private  String passengerId;

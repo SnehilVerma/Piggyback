@@ -1,5 +1,8 @@
 package com.fivetwenty.piggyback.model;
 
+/**
+ * Module to process the pick and drop requests
+ */
 public class PickupDrop {
     private String pickup;
     private String drop;

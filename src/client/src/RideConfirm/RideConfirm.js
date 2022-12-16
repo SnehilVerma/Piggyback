@@ -1,10 +1,16 @@
 import React    from "react";
-import template from "./RideConfirm.jsx";
+import Template from "./RideConfirm.jsx";
 
-class RideConfirm extends React.Component {
-  render() {
-    return template.call(this);
-  }
+
+function RideConfirm(){
+
+  return Template.call(this);
+      
 }
+// class RideConfirm extends React.Component {
+//   render() {
+//     return Template.call(this);
+//   }
+// }
 
 export default RideConfirm;

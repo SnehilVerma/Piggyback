@@ -4,6 +4,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
+/**
+ * Module to process User information
+ * Contains getter and setter methods for Name, Password, Rating
+ */
 @Document("Users")
 public class User implements IUser {
 

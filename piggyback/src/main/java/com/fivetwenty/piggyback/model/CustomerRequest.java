@@ -1,5 +1,9 @@
 package com.fivetwenty.piggyback.model;
 
+/**
+ * Module to handle all the customer requests
+ * Contains getter and setter methods for userId, source, destination
+ */
 public class CustomerRequest {
     private  String userId;
     private  String src;

@@ -4,6 +4,8 @@ import { Avatar, Button } from '@mui/material';
 import {Link } from "react-router-dom";
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
+import { useContext } from 'react';
+import UserContext from '../Context';
 
 
 
@@ -15,7 +17,7 @@ function RideDetails(id, driver, pickup, dropoff, phone) {
     this.phone = phone;
 }
 
-const ride = new RideDetails("1", "Human Being", "142 Brittany Mnr Dr", "337 Russel St", "(123)456-7890", "ride@example.com");
+//  const ride = new RideDetails("1", "Human Being", "142 Brittany Mnr Dr", "337 Russel St", "(123)456-7890", "ride@example.com");
 
 function stringAvatar(name) {
     return {
@@ -50,13 +52,13 @@ function stringToColor(string) {
 //     }
 
 
-    const finishRide = (ride) => {
-        const finish = window.confirm('Do you want to finish this ride?');
-        if (finish) {
-            window.location = "/RideBook";
-            //Does not pass state
-        }
+const finishRide = (ride) => {
+    const finish = window.confirm('Do you want to finish this ride?');
+    if (finish) {
+        window.location = "/RideBook";
+        //Does not pass state
     }
+}
 
 function rating() {
     return (
@@ -66,7 +68,12 @@ function rating() {
     )
 }
 
-function template() {
+function Template() {
+    // console.log("printing");
+    const ride = useContext(UserContext);
+    console.log(ride);
+    console.log(ride.driver);
+    console.log(ride.phone);
     return (<div className="ride">
             <div className="ride-title">Ride Details</div>
             <div className="ride-container">
@@ -82,4 +89,4 @@ function template() {
     )
 };
 
-export default template;
+export default Template;

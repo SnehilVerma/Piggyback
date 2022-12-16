@@ -4,6 +4,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+/**
+ * Module process routes for destination
+ */
 @Document("Routes")
 public class Route {
 
