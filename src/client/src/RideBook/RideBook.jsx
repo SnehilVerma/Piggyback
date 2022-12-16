@@ -53,7 +53,7 @@ const Template = (props) => {
               <h1 className="title">Book a Ride</h1>
                 <Map className="center-text-map"/>
                 <div className="src-dest center-text">
-                        <div className="center-text">
+                        <div className="center-text padding-bottom">
                             <Autocomplete
                                 disablePortal
                                 name="userType"
@@ -63,7 +63,7 @@ const Template = (props) => {
                                 onChange={(event, value) => handleInputChange('userType', value)}
                             />
                         </div>
-                        <div className="center-text">
+                        <div className="center-text padding-bottom">
                                       <Autocomplete
                                         disablePortal
                                         name="source"
@@ -73,7 +73,7 @@ const Template = (props) => {
                                         onChange={(event, value) => handleInputChange('source', value)}
                                       />
                         </div>
-                        <div className="center-text">
+                        <div className="center-text padding-bottom">
                                       <Autocomplete
                                         disablePortal
                                         id="destination"

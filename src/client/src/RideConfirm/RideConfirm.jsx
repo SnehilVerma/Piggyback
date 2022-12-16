@@ -46,27 +46,35 @@ function stringToColor(string) {
 }
 
 
-const finishRide = (ride) => {
-    const finish = window.confirm('Do you want to finish this ride?');
-    if (finish) {
-        window.location = "/RideBook";
-        //Does not pass state
-    }
-}
+// const finishRide = (ride) => {
+//     const finish = window.confirm('Do you want to finish this ride?');
+//     if (finish) {
+//         window.location = "/RideBook";
+//         //Does not pass state
+//     }
+// }
 
-function rating() {
-    return (
-        <Stack spacing={1}>
-            <Rating name="half-rating" defaultValue={0} precision={0.5}/>
-        </Stack>
-    )
-}
+// function rating() {
+//     return (
+//         <Stack spacing={1}>
+//             <Rating name="half-rating" defaultValue={0} precision={0.5}/>
+//         </Stack>
+//     )
+// }
 
 function Template() {
+
+    const finishRide = () => {
+        const finish = window.confirm('Do you want to finish this ride?');
+        if (finish) {
+            window.location = "/";
+            //Does not pass state
+        }
+    }
 //     const ride = useContext(UserContext);
-//  PHONE NUMBER IS MISSING ???
     const location = useLocation();
-    const ride = location.state;
+    let ride = location.state;
+    ride.phone = "(123) 456-789";
 
     return (<div className="ride">
             <div className="ride-title">Ride Details</div>
