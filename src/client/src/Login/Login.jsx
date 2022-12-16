@@ -1,57 +1,41 @@
 import "./Login.css";
-import React from "react";
+import React, {useState} from "react";
 import MediaQuery from 'react-responsive';
-import {Button} from '@mui/material';
-import {Link } from "react-router-dom";
+import {Button, TextField} from '@mui/material';
+import {Link, useNavigate } from "react-router-dom";
 
+const Template = (props) => {
+  const [state, setState] = useState({
+    username: '',
+    password: '',
+  });
 
-
-function submitLogin(){
-    console.log("response")
-}
-
-const Device = () => (
-    <div>
-        <MediaQuery minWidth={1224}>
-          {/*<p>You are a desktop or laptop</p>*/}
-          <MediaQuery minWidth={1824}>
-            {/*<p>You also have a huge screen</p>*/}
-          </MediaQuery>
-        </MediaQuery>
-        <MediaQuery minResolution="2dppx">
-          {/* You can also use a function (render prop) as a child */}
-          {(matches) =>
-            matches
-              ? <p>
-                 {Login()}
-              </p>
-              : <p>{Login()}</p>
-          }
-        </MediaQuery>
-      </div>
- );
-
-function Login() {
-  return (
-    <form className="login center-text">
-      <h1>Login</h1>
-      <div>
-          <input className="center-text"
-              type="text" value={this} name="username"
-          />
-      </div>
-      <div>
-          <input className="center-text"
-             type="password" name="password"
-          />
-      </div>
-      <div>
-          <Link to="/RideBook">
-          <Button variant="contained" onClick={submitLogin()}>Login</Button>
-              </Link>
-      </div>
-    </form>
-    )
+  const navigate = useNavigate();
+  const handleOnSubmit = (event) => {
+    if (event){
+        navigate('/RideBook', {state:state})
+    }
   };
 
-export default Device;
+  const handleInputChange = (event) =>{
+    const { name, value } = event.target;
+    setState((prevState) => ({...prevState, [name]: value}))
+  };
+  return (
+    <div className="login center-text">
+        <h1>Login</h1>
+        <div>
+                <TextField id="outlined-basic" name="username" variant="outlined" placeholder="Username" label="Username"
+                onChange={handleInputChange}/>
+        </div>
+        <div className="text-field">
+                <TextField id="outlined-basic" name="password" variant="outlined" type="password" placeholder="Password"
+                label="Password" onChange={handleInputChange}/>
+        </div>
+        <div className="login-button">
+              <Button variant="contained" onClick={handleOnSubmit}>Login</Button>
+        </div>
+    </div>
+  )
+};
+export default Template;
