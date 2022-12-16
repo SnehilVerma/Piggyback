@@ -13,6 +13,8 @@ import com.mongodb.client.model.Filters;
 import org.apache.logging.log4j.message.Message;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -102,7 +104,7 @@ public class PiggyController {
     }
 
     @PostMapping("/login")
-    public String loginRequest(@RequestBody User user){
+    public ResponseEntity<String> loginRequest(@RequestBody User user){
         MongoDatabase database = mongoClient.getDatabase("PiggyData");
         String userId = user.getName();
 
@@ -110,17 +112,17 @@ public class PiggyController {
             MongoCollection<Document> userCollection = database.getCollection(Constants.usersCollection);
             Document entry = userCollection.find(Filters.eq("userName", userId)).first();
             if (entry == null){
-                return "No user found";
+                return new ResponseEntity<>("No user found", HttpStatus.NOT_FOUND);
             }
             String password = (String) entry.get("password");
              if (password.equals(user.getPassword())){
-                 return "Login Successful";
+                 return new ResponseEntity<>("Login Successful", HttpStatus.OK);
              }
         }catch (Exception e){
             System.out.println(e);
-            return "Login Failed";
+            return new ResponseEntity<>("No user found", HttpStatus.NOT_FOUND);
         }
-        return "Failed";
+        return new ResponseEntity<>("No user found", HttpStatus.NOT_FOUND);
     }
 
 
