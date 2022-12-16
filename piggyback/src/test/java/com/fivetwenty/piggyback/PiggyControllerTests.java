@@ -8,6 +8,7 @@ import com.fivetwenty.piggyback.model.Constants;
 import com.fivetwenty.piggyback.model.User;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +19,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.print.Doc;
 
