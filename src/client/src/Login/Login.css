@@ -7,6 +7,10 @@
 }
 .center-text{
         text-align: center;
-        margin-bottom: 10px;
-
+ }
+.login-button{
+    margin-top: 2em;
+}
+.text-field{
+    margin-top: 1em;
 }

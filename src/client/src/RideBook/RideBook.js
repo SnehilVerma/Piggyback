@@ -1,10 +1,10 @@
 import React    from "react";
-import template from "./RideBook.jsx";
+import Template from "./RideBook.jsx";
 
-class RideBook extends React.Component {
-  render() {
-    return template.call(this);
-  }
+function RideBook() {
+    return Template.call(this);
+
 }
 
 export default RideBook;
+
