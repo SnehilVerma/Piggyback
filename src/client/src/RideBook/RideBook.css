@@ -9,12 +9,13 @@
 }
 .src-dest {
     margin-top: 1%;
+    margin-left: 2.5em;
 }
 .center-text-btn{
     text-align: center;
-    margin-left: -40%;
     width: 100%;
     margin-top: 2%;
+    margin-left: -19em;
 
 }
 
@@ -29,4 +30,9 @@
     font-size: 40px;
     font-weight: 700;
     line-height: 64px;
+    margin-left: 1.5em;
+}
+
+.padding-bottom{
+    padding-bottom: 1em;
 }

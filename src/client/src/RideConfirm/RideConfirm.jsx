@@ -64,9 +64,9 @@ function rating() {
 
 function Template() {
 //     const ride = useContext(UserContext);
-//  PHONE NUMBER IS MISSING ???
     const location = useLocation();
-    const ride = location.state;
+    let ride = location.state;
+    ride.phone = "(123) 456-789";
 
     return (<div className="ride">
             <div className="ride-title">Ride Details</div>
