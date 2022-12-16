@@ -19,6 +19,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import org.springframework.http.ResponseEntity;
 
 import javax.print.Doc;
 
@@ -52,7 +53,7 @@ public class PiggyControllerTests {
         when(database.getCollection(Constants.usersCollection)).thenReturn(userCollection);
         when(userCollection.find(Filters.eq("userName", "testuser")).first()).thenReturn(document);
 
-        String result = loginController.loginRequest(user);
+        ResponseEntity<String> result = loginController.loginRequest(user);
         assertEquals("Login Successful", result);
     }
 
@@ -69,7 +70,7 @@ public class PiggyControllerTests {
         when(database.getCollection(Constants.usersCollection)).thenReturn(userCollection);
         when(userCollection.find(Filters.eq("userName", "testuser")).first()).thenReturn(document);
 
-        String result = loginController.loginRequest(user);
+        ResponseEntity<String> result = loginController.loginRequest(user);
         assertEquals("Login Failed", result);
     }
 
@@ -86,7 +87,7 @@ public class PiggyControllerTests {
         when(database.getCollection(Constants.usersCollection)).thenReturn(userCollection);
         when(userCollection.find(Filters.eq("userName", "testuser")).first()).thenReturn(document);
 
-        String result = loginController.loginRequest(user);
+        ResponseEntity<String> result = loginController.loginRequest(user);
         assertEquals("No user found", result);
     }
 

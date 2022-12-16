@@ -9,5 +9,4 @@ class PiggybackApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
