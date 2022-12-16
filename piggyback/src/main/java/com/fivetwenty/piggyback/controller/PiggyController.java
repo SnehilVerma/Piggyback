@@ -112,7 +112,7 @@ public class PiggyController {
             MongoCollection<Document> userCollection = database.getCollection(Constants.usersCollection);
             Document entry = userCollection.find(Filters.eq("userName", userId)).first();
             if (entry == null){
-                return new ResponseEntity<>("No user found ", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("No user found", HttpStatus.NOT_FOUND);
             }
             String password = (String) entry.get("password");
              if (password.equals(user.getPassword())){
@@ -122,7 +122,7 @@ public class PiggyController {
             System.out.println(e);
             return new ResponseEntity<>("Found exception", HttpStatus.EXPECTATION_FAILED);
         }
-        return new ResponseEntity<>("Process Completed", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Wrong Password", HttpStatus.NOT_FOUND);
     }
 
 
