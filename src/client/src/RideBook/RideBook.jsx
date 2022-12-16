@@ -8,6 +8,7 @@ const Template = (props) => {
   const location = useLocation();
   const currentUser = location.state.userName;
   let [state, setState] = useState({
+    userId: currentUser,
     userType: '',
     source: '',
     destination: ''
@@ -19,22 +20,29 @@ const Template = (props) => {
   let dataToReturn = [];
 
   const submitRide = (response) => {
-      console.log("here")
       const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json','Access-Control-Allow-Origin': '*'},
-          body: JSON.stringify(state)
+          body: JSON.stringify({
+                                   "userId": state.userId,
+                                   "src": state.source,
+                                   "dst": state.destination,
+                                   "type": state.userType
+                               })
       };
-      const sse = new EventSource('http://localhost:8080/requestMatch', requestOptions);
-        sse.onmessage = e => console.log(e);
-        sse.onerror = (e) => {
-          // error log here
-          console.log(e.message);
-          sse.close();
-        }
-        return () => {
-          sse.close();
-        };
+      fetch('http://localhost:8080/requestMatch', requestOptions)
+                  .then( res => {
+                         if(res.status >= 400) {
+                                     throw new Error("Server responded with error!");
+                                 }
+                         console.log("Ride Book request sent")
+                     }
+                  )
+                  .then(data => setState({userName: data.id}))
+                  .catch(function(error) {
+         //                 setError('Error occurred while requesting ride!);
+                     console.error('Error occurred while requesting ride!');
+                     });
   };
 
   const handleInputChange = (name, value) => {
