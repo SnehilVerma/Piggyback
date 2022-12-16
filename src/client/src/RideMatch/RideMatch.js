@@ -1,10 +1,9 @@
 import React    from "react";
-import template from "./RideMatch.jsx";
+import Template from "./RideMatch.jsx";
 
-class RideMatch extends React.Component {
-  render() {
-    return template.call(this);
-  }
+function RideMatch() {
+    return Template.call(this);
+
 }
 
 export default RideMatch;
