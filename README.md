@@ -16,19 +16,18 @@
 * Using the Routes json file we are able to create a graph of the entire Amherst town , where each node is a street name, and connects to other streets ( neighbors of this node )
 * We are running a modified BFS on top of this, to get a shortest path of any source to any destination.
 
-
-# Pending items
-* ~We should do all pair shortest paths and store it in one shot because route data will be constant and won't change.~ Done
-* We can convert this unweighted graph of the city into a weighted graph to provide better directions. Why? Because many streets are long as compared to another and it doesn't make much sense to take their path length as 1 when compared with much smaller streets. The dataset has segments for long streets with multiple intersections. As a beginner step, we can take the sum of segments as the weight of that path. At a high level, more segments for a street does represent the qualitative length of the street.
-* Build a feature rich and responsive UI client. We have created Mock-ups for now.
-* We have to build the backend services for various purposes like ride matching, ride booking, user account creation, ride tracking etc.
-* Create MongoDB connections and store/retrieve data from the datastore.
-* Implement a notification service that will notify users/drivers about any ride.
-
-
 # Future items - inclusion of these items dependent on time available.
 * We can show the route percentage match for each rider whenever an overlapping passenger request is found. And similarly for passenger we can show a similar stat ( More thought needs to be given to this)
 * A rider won't know the exact street on which they are booking the ride from. We can use their GPS data to identify the coordinates and find the closest street to their coordinate by simple coordinate distance matching. ( We have the coordinate data for each street in the dataset. )
 * Use Google Maps API to have dynamic information about routes and traffic.
 * Incorporation of two-way rating in the app.
 * Applying payment coupons in collaboration with local shops as an incentive to use the application and boost local small businesses.
+
+# Requirement
+* User should be able to Register and provide username and password.
+* User should face error if username already exists.
+* User should be able to Login using their login details.
+* User should face error if login details are incorrect.
+* User should be able to request a ride and provide source and destination information.
+* User should be able to view matched rides, and be able to choose a ride.
+* User should be able to pair with a driver/passenger and see information about the ride they chose.
