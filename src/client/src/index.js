@@ -11,7 +11,7 @@ import '@fontsource/roboto/700.css';
 import { useState, useEffect } from 'react';
 import Context from './Context';
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 // import here the component you want to render
 import Login from "./Login/Login.js";

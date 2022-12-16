@@ -2,37 +2,47 @@ import "./RideBook.css";
 import React from "react";
 import Map from "./Map/Map.js";
 import {Button, Autocomplete, TextField, Grid} from '@mui/material';
-import {Link } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 
-const srcList = ["142 Brittany Mnr Dr", "171 Brittany Mnr Dr"];
-const destList = ["337 Russel St", "375 Russel St"];
-const params = {};
-const user = ["Driver", "Passenger"];
+export default function RideBook(){
+//   const navigate = useNavigate();
+  const srcList = ["142 Brittany Mnr Dr", "171 Brittany Mnr Dr"];
+  const destList = ["337 Russel St", "375 Russel St"];
+  const params = {};
+  const user = ["Driver", "Passenger"];
+  let dataToReturn = [];
 
-function submitRide(response) {
-    // Simple POST request with a JSON body using fetch
-    console.log("here")
-    const requestOptions = {
-        method: 'POST',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json','Access-Control-Allow-Origin': '*',},
-        body: JSON.stringify({ title: 'React POST Request Example' })
-    };
-    // fetch is not hitting backend due to cors error
-    fetch('http://localhost:8080/matches/1', requestOptions)
-        .then(function(response){
-            if (response.ok){
-            return response.json()
-            }
-            throw new Error(response);
-        })
-        .then(data => this.setState({ postId: data.id }))
-        .catch(function(error){
-            console.log(error);
-        });
-}
+  const submitRide = (response) => {
+      // Simple POST request with a JSON body using fetch
+      console.log("here")
+      const requestOptions = {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json','Access-Control-Allow-Origin': '*'}
+  //         body: JSON.stringify({ title: 'React POST Request Example' })
+      };
+      const sse = new EventSource('http://localhost:8080/matches/Snehil',
+          { withCredentials: false });
+        const getRealtimeData = (data) => {
+          // process the data here,
+          // then pass it to state to be rendered
+          console.log(data)
+          dataToReturn = data;
+//           history.push({
+//                      pathname: '/RideMatch',
+//                      state: dataToReturn
+//                     });
+//           navigate('/RideMatch', { state: dataToReturn})
+        }
+        sse.onmessage = e => getRealtimeData(JSON.parse(e.data));
+        sse.onerror = () => {
+          // error log here
 
-function template() {
+          sse.close();
+        }
+        return () => {
+          sse.close();
+        };
+  };
   return (
             <div className="ride-book">
               <h1 className="title">Book a Ride</h1>
@@ -75,4 +85,4 @@ function template() {
   )
 };
 
-export default template;
+{/* export default RideBook; */}

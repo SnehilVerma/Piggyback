@@ -5,7 +5,6 @@ class RideBook extends React.Component {
   render() {
     return template.call(this);
   }
-
 }
 
 export default RideBook;
