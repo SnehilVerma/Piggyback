@@ -121,39 +121,6 @@ public class PiggyController {
     }
 
 
-//    @GetMapping("/requestRide")
-//    /**
-//     * <p>
-//     *     Sample endpoint to test Server side events.
-//     *     What it's supposed to do - When the client calls this endpoint, the server sets up a
-//     *     unidirectional channel with the client. The server can send updates to this connected client,
-//     *     and when it's done it will close the connection.
-//     *     Important thing to note : Unlike WebSockets which are bidirectional, here the connection is
-//     *     unidirection from server -> client ( which called this endpoint ).
-//     * </p>
-//     */
-//    public SseEmitter requestRide(){
-//        SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
-//        sseEmitter.onCompletion(()->System.out.println("SseEmitted completed"));
-//        sseEmitter.onTimeout(()->System.out.println("SseEmitted completed"));
-//        sseEmitter.onError((ex)->System.out.println("error " + ex));
-//        executor.execute(()->{
-//            for(int i=0;i<15;i++){
-//                try{
-//                    sseEmitter.send(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")));
-//                    Thread.sleep(1000);    //sleep for 1 sec.
-//                }catch (Exception ex){
-//                    ex.printStackTrace();
-//                    sseEmitter.completeWithError(ex);
-//                }
-//            }
-//            sseEmitter.complete();
-//        });
-//        System.out.println("exiting controller");
-//        return sseEmitter;
-//
-//    }
-
 
     //logic to keep checking the 'matches' collection and keep pushing to client,
     // if any new entry is added to this passenger.
@@ -204,6 +171,7 @@ public class PiggyController {
         return sseEmitter;
     }
 
+    //Ride Lock endpoint.
     @PostMapping("/rideRequestToDriver")
     public String rideRequestToDriver(@RequestBody RideRequestWaiting rideRequestWaiting) {
         rideRequestWaiting.setStatus(false);
