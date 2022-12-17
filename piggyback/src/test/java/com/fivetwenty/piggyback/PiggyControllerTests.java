@@ -49,15 +49,12 @@ public class PiggyControllerTests {
         document.put("userRating", 5f);
         document.put("password", "aaaa");
 
-        FindIterable iterable = mock(FindIterable.class);
-        MongoCursor cursor = mock(MongoCursor.class);
+        FindIterable<Document> iterable = mock(FindIterable.class);
 
         when(mongoClient.getDatabase("PiggyData")).thenReturn(database);
         when(database.getCollection(Constants.usersCollection)).thenReturn(userCollection);
-        when(userCollection.find(Filters.eq("userId", userId))).thenReturn(iterable);
-        when(iterable.iterator()).thenReturn(cursor);
-        when(cursor.hasNext()).thenReturn(true).thenReturn(false);
-        when(cursor.next()).thenReturn(document);
+        when(userCollection.find(Filters.eq("userName", userId))).thenReturn(iterable);
+        when(iterable.first()).thenReturn(document);
 
         ResponseEntity<String> result = loginController.loginRequest(user);
         assertEquals("Login Successful", result.getBody());
