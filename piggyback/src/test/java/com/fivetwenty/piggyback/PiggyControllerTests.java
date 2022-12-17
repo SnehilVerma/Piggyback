@@ -55,7 +55,7 @@ public class PiggyControllerTests {
     }
 
     @Test
-    public void testloginInvalidUser() {
+    public void testLoginInvalidUser() {
         User user = new User("Invlidtestuser", "Invalidtestpassword", 5f, "aaaa");
         //Document document = new Document("userName", "testuser").append("password", "testpassword");
         String userId = user.getName();
@@ -77,7 +77,7 @@ public class PiggyControllerTests {
     }
 
     @Test
-    public void testloginFailed() {
+    public void testLoginFailed() {
         User user = new User("testuser", "testpassword", 5f, "aaaa");
         //Document document = new Document("userName", "testuser").append("password", "testpassword");
         String userId = user.getName();

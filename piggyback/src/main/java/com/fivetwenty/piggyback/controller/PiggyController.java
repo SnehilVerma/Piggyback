@@ -62,24 +62,6 @@ public class PiggyController {
         return pickupDrop.toString();
     }
 
-    public void requestDump(CustomerRequest customerRequest) {
-        String userId = customerRequest.getUserId();
-        String src = customerRequest.getSrc();
-        String dst = customerRequest.getDst();
-        Date date = new Date();
-
-        System.out.println(customerRequest.getType());
-        if (customerRequest.getType().equals("Driver")) {
-            DriverRequest driverRequest = new DriverRequest(userId, src, dst);
-            driverRequest.setDate(date);
-            driverRequestRepository.save(driverRequest);
-        } else {
-            PassengerRequest passengerRequest = new PassengerRequest(userId, src, dst);
-            passengerRequest.setDate(date);
-            passengerRequestRepository.save(passengerRequest);
-        }
-    }
-
     @PostMapping("/requestMatch")
     public String requestMatching(@RequestBody CustomerRequest customerRequest) {
 
@@ -234,6 +216,25 @@ public class PiggyController {
 
         System.out.println("exiting matches sse");
         return sseEmitter;
+    }
+
+
+    public void requestDump(CustomerRequest customerRequest) {
+        String userId = customerRequest.getUserId();
+        String src = customerRequest.getSrc();
+        String dst = customerRequest.getDst();
+        Date date = new Date();
+
+        System.out.println(customerRequest.getType());
+        if (customerRequest.getType().equals("Driver")) {
+            DriverRequest driverRequest = new DriverRequest(userId, src, dst);
+            driverRequest.setDate(date);
+            driverRequestRepository.save(driverRequest);
+        } else {
+            PassengerRequest passengerRequest = new PassengerRequest(userId, src, dst);
+            passengerRequest.setDate(date);
+            passengerRequestRepository.save(passengerRequest);
+        }
     }
 
 
