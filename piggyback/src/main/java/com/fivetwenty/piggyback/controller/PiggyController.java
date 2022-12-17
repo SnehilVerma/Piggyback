@@ -10,7 +10,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import org.apache.logging.log4j.message.Message;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,23 +17,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import javax.print.Doc;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Filter;
 
 /**
  * Main Controller of the App containing the API endpoints mapping which
  * calls the respective executor methods
  */
 @RestController
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class PiggyController {
     //TODO: need to check which concrete object to assign to ExecutorService interface.
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -57,25 +51,25 @@ public class PiggyController {
     MongoClient mongoClient;
 
     @GetMapping("/")
-    public String index(){
+    public String index() {
         return "Application OK";
     }
 
     @PostMapping("/queryRoute")
-    public String getRoutes(@RequestBody PickupDrop pickupDrop){
+    public String getRoutes(@RequestBody PickupDrop pickupDrop) {
         System.out.println(pickupDrop.getPickup() + " " + pickupDrop.getDrop());
 
         return pickupDrop.toString();
     }
 
-    public void requestDump(CustomerRequest customerRequest){
+    public void requestDump(CustomerRequest customerRequest) {
         String userId = customerRequest.getUserId();
         String src = customerRequest.getSrc();
         String dst = customerRequest.getDst();
         Date date = new Date();
 
         System.out.println(customerRequest.getType());
-        if (customerRequest.getType().equals("Driver")){
+        if (customerRequest.getType().equals("Driver")) {
             DriverRequest driverRequest = new DriverRequest(userId, src, dst);
             driverRequest.setDate(date);
             driverRequestRepository.save(driverRequest);
@@ -85,18 +79,19 @@ public class PiggyController {
             passengerRequestRepository.save(passengerRequest);
         }
     }
+
     @PostMapping("/requestMatch")
-    public String requestMatching(@RequestBody CustomerRequest customerRequest){
+    public String requestMatching(@RequestBody CustomerRequest customerRequest) {
 
         requestDump(customerRequest);
         return "Request entered in the Database";
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<String> registrationRequest(@RequestBody User user){
-        try{
+    public ResponseEntity<String> registrationRequest(@RequestBody User user) {
+        try {
             userRepository.save(user);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             return new ResponseEntity<>("Found exception", HttpStatus.EXPECTATION_FAILED);
         }
@@ -104,21 +99,21 @@ public class PiggyController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginRequest(@RequestBody User user){
+    public ResponseEntity<String> loginRequest(@RequestBody User user) {
         MongoDatabase database = mongoClient.getDatabase("PiggyData");
         String userId = user.getName();
 
-        try{
+        try {
             MongoCollection<Document> userCollection = database.getCollection(Constants.usersCollection);
             Document entry = userCollection.find(Filters.eq("userName", userId)).first();
-            if (entry == null){
+            if (entry == null) {
                 return new ResponseEntity<>("No user found", HttpStatus.NOT_FOUND);
             }
             String password = (String) entry.get("password");
-             if (password.equals(user.getPassword())){
-                 return new ResponseEntity<>("Login Successful", HttpStatus.OK);
-             }
-        }catch (Exception e){
+            if (password.equals(user.getPassword())) {
+                return new ResponseEntity<>("Login Successful", HttpStatus.OK);
+            }
+        } catch (Exception e) {
             System.out.println(e);
             return new ResponseEntity<>("Found exception", HttpStatus.EXPECTATION_FAILED);
         }
@@ -163,16 +158,16 @@ public class PiggyController {
     //logic to keep checking the 'matches' collection and keep pushing to client,
     // if any new entry is added to this passenger.
     @GetMapping("/matches/{userId}")
-    public SseEmitter matches(@PathVariable String userId){
+    public SseEmitter matches(@PathVariable String userId) {
         SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
-        sseEmitter.onCompletion(()->System.out.println("SseEmitted completed"));
-        sseEmitter.onTimeout(()->System.out.println("SseEmitted completed"));
-        sseEmitter.onError((ex)->System.out.println("error " + ex));
+        sseEmitter.onCompletion(() -> System.out.println("SseEmitted completed"));
+        sseEmitter.onTimeout(() -> System.out.println("SseEmitted completed"));
+        sseEmitter.onError((ex) -> System.out.println("error " + ex));
 
-        executor.execute(()->{
+        executor.execute(() -> {
 
             try {
-                for(int i=0;i<Constants.matchPushTimeoutConstant;i++) {
+                for (int i = 0; i < Constants.matchPushTimeoutConstant; i++) {
                     MongoCollection<Document> matchesCollection = mongoClient.getDatabase(Constants.dbName).
                             getCollection(Constants.matchesCollection);
 
@@ -185,10 +180,10 @@ public class PiggyController {
 
                     List<Document> resultMatches = new ArrayList<>();
                     List<String> matches = (List<String>) matchArray.get("matches");
-                    for(String riderMatch : matches){
-                        Document d =new Document();
+                    for (String riderMatch : matches) {
+                        Document d = new Document();
                         Document currRider = riderRequestsCollection.find(Filters.eq("userId", riderMatch)).first();
-                        if(currRider!=null) {
+                        if (currRider != null) {
                             d.put("userId", riderMatch);
                             d.put("src", currRider.get("src"));
                             d.put("dst", currRider.get("dst"));
@@ -198,7 +193,7 @@ public class PiggyController {
                     sseEmitter.send(resultMatches);
                     Thread.sleep(1000);
                 }
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
                 sseEmitter.completeWithError(ex);
             }
@@ -210,9 +205,9 @@ public class PiggyController {
     }
 
     @PostMapping("/rideRequestToDriver")
-    public String rideRequestToDriver(@RequestBody RideRequestWaiting rideRequestWaiting){
+    public String rideRequestToDriver(@RequestBody RideRequestWaiting rideRequestWaiting) {
         rideRequestWaiting.setStatus(false);
-        try{
+        try {
             rideRequestWaitingRepository.save(rideRequestWaiting);
         } catch (Exception e) {
             System.out.println(e);
@@ -225,16 +220,16 @@ public class PiggyController {
     //For now we'll just wait for the first entry to populate the BookedRide collection, and close the sse emitter.
     //In short , as soon as someone books this driver ( userId ) , we'll send an event to the driver and update their UI.
     @GetMapping("/awaitConfirmation/{driverId}")
-    public SseEmitter awaitConfirmation(@PathVariable String driverId){
+    public SseEmitter awaitConfirmation(@PathVariable String driverId) {
         SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
-        sseEmitter.onCompletion(()->System.out.println("SseEmitted completed"));
-        sseEmitter.onTimeout(()->System.out.println("SseEmitted completed"));
-        sseEmitter.onError((ex)->System.out.println("error " + ex));
+        sseEmitter.onCompletion(() -> System.out.println("SseEmitted completed"));
+        sseEmitter.onTimeout(() -> System.out.println("SseEmitted completed"));
+        sseEmitter.onError((ex) -> System.out.println("error " + ex));
 
-        executor.execute(()->{
+        executor.execute(() -> {
 
             try {
-                for(int i=0;i<Constants.matchPushTimeoutConstant;i++) {
+                for (int i = 0; i < Constants.matchPushTimeoutConstant; i++) {
                     MongoCollection<Document> rideRequestWaitingCollection = mongoClient.getDatabase(Constants.dbName).
                             getCollection(Constants.rideRequestWaitingCollection);
 
@@ -243,26 +238,26 @@ public class PiggyController {
 
                     List<Document> resultMatches = new ArrayList<>();
                     MongoCursor<Document> pcursor = rideRequestWaitingCollection.find().iterator();
-                    try{
-                        while (pcursor.hasNext()){
+                    try {
+                        while (pcursor.hasNext()) {
                             Document waitingRequest = pcursor.next();
-                            String rid = (String)waitingRequest.get("driverId");
-                            if (rid.equals(driverId)){
-                                Document d =new Document();
-                                d.put("passengerId", (String)waitingRequest.get("passengerId"));
-                                d.put("src", (String)waitingRequest.get("src"));
-                                d.put("dst", (String)waitingRequest.get("dst"));
+                            String rid = (String) waitingRequest.get("driverId");
+                            if (rid.equals(driverId)) {
+                                Document d = new Document();
+                                d.put("passengerId", (String) waitingRequest.get("passengerId"));
+                                d.put("src", (String) waitingRequest.get("src"));
+                                d.put("dst", (String) waitingRequest.get("dst"));
                                 resultMatches.add(d);
                             }
                         }
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                         sseEmitter.completeWithError(e);
                     }
                     sseEmitter.send(resultMatches);
                     Thread.sleep(1000);
                 }
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
                 sseEmitter.completeWithError(ex);
             }

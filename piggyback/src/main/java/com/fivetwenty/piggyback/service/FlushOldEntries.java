@@ -1,10 +1,6 @@
 package com.fivetwenty.piggyback.service;
 
 import com.fivetwenty.piggyback.model.Constants;
-import com.fivetwenty.piggyback.model.DriverRequest;
-import com.fivetwenty.piggyback.model.PassengerRequest;
-import com.fivetwenty.piggyback.repository.DriverRequestRepository;
-import com.fivetwenty.piggyback.repository.PassengerRequestRepository;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -18,10 +14,10 @@ import java.util.Date;
 
 /**
  * The Mongo client.
- *  Module to flush all the old entries
- *  When a driver/passenger requests for a ride, the job retries for 2 times
- *  After which the request would be flushed out and the user would have
- *  to try to find a match again after some time
+ * Module to flush all the old entries
+ * When a driver/passenger requests for a ride, the job retries for 2 times
+ * After which the request would be flushed out and the user would have
+ * to try to find a match again after some time
  */
 @Component
 public class FlushOldEntries {

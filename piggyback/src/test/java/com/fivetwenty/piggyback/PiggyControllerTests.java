@@ -1,27 +1,21 @@
 package com.fivetwenty.piggyback;
 
-import static org.junit.Assert.assertEquals;
-import static  com.fivetwenty.piggyback.controller.PiggyController.*;
-
 import com.fivetwenty.piggyback.controller.PiggyController;
 import com.fivetwenty.piggyback.model.Constants;
 import com.fivetwenty.piggyback.model.User;
-import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
-import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import com.mongodb.client.model.Filters;
 import org.springframework.http.ResponseEntity;
 
-import javax.print.Doc;
-
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PiggyControllerTests {
