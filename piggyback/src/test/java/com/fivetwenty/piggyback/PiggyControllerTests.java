@@ -56,7 +56,7 @@ public class PiggyControllerTests {
 
     @Test
     public void testloginInvalidUser() {
-        User user = new User("InvalidUser", "InvalidPassword", 5f, "cccc");
+        User user = new User("Invlidtestuser", "Invalidtestpassword", 5f, "aaaa");
         //Document document = new Document("userName", "testuser").append("password", "testpassword");
         String userId = user.getName();
         Document document = new Document();
@@ -65,39 +65,34 @@ public class PiggyControllerTests {
         document.put("userRating", 5f);
         document.put("password", "aaaa");
 
-        FindIterable iterable = mock(FindIterable.class);
-        MongoCursor cursor = mock(MongoCursor.class);
+        FindIterable<Document> iterable = mock(FindIterable.class);
 
         when(mongoClient.getDatabase("PiggyData")).thenReturn(database);
         when(database.getCollection(Constants.usersCollection)).thenReturn(userCollection);
-        when(userCollection.find(Filters.eq("userId", userId))).thenReturn(iterable);
-        when(iterable.iterator()).thenReturn(cursor);
-        when(cursor.hasNext()).thenReturn(true).thenReturn(false);
-        when(cursor.next()).thenReturn(document);
+        when(userCollection.find(Filters.eq("userName", userId))).thenReturn(iterable);
+        when(iterable.first()).thenReturn(document);
 
         ResponseEntity<String> result = loginController.loginRequest(user);
-        assertEquals("No user found", result.getBody());
+        assertEquals("Login Successful", result.getBody());
     }
 
+    @Test
     public void testloginFailed() {
-        User user = new User("testuser", "testpassword", 5f, "bbbb");
+        User user = new User("testuser", "testpassword", 5f, "aaaa");
         //Document document = new Document("userName", "testuser").append("password", "testpassword");
         String userId = user.getName();
         Document document = new Document();
         document.put("userId", "testUser");
         document.put("userName", "testpassword");
         document.put("userRating", 5f);
-        document.put("password", "aaaa");
+        document.put("password", "bbbb");
 
-        FindIterable iterable = mock(FindIterable.class);
-        MongoCursor cursor = mock(MongoCursor.class);
+        FindIterable<Document> iterable = mock(FindIterable.class);
 
         when(mongoClient.getDatabase("PiggyData")).thenReturn(database);
         when(database.getCollection(Constants.usersCollection)).thenReturn(userCollection);
-        when(userCollection.find(Filters.eq("userId", userId))).thenReturn(iterable);
-        when(iterable.iterator()).thenReturn(cursor);
-        when(cursor.hasNext()).thenReturn(true).thenReturn(false);
-        when(cursor.next()).thenReturn(document);
+        when(userCollection.find(Filters.eq("userName", userId))).thenReturn(iterable);
+        when(iterable.first()).thenReturn(document);
 
         ResponseEntity<String> result = loginController.loginRequest(user);
         assertEquals("Wrong Password", result.getBody());
