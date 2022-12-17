@@ -1,8 +1,7 @@
 import "./Login.css";
-import React, {setError, useState} from "react";
-import MediaQuery from 'react-responsive';
+import React, {useState} from "react";
 import {Button, TextField} from '@mui/material';
-import {Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
 const Template = (props) => {
   const [state, setState] = useState({

@@ -1,23 +1,7 @@
 import "./RideConfirm.css";
 import React from "react";
 import { Avatar, Button } from '@mui/material';
-import {Link } from "react-router-dom";
-import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
-import { useContext } from 'react';
-import UserContext from '../Context';
 import { useLocation } from "react-router-dom";
-
-
-
-function RideDetails(id, driver, pickup, dropoff, phone) {
-    this.id = id;
-    this.driver = driver;
-    this.pickup = pickup;
-    this.dropoff = dropoff;
-    this.phone = phone;
-}
-
 function stringAvatar(name) {
     return {
         sx: {
@@ -44,24 +28,6 @@ function stringToColor(string) {
 
     return color;
 }
-
-
-// const finishRide = (ride) => {
-//     const finish = window.confirm('Do you want to finish this ride?');
-//     if (finish) {
-//         window.location = "/RideBook";
-//         //Does not pass state
-//     }
-// }
-
-// function rating() {
-//     return (
-//         <Stack spacing={1}>
-//             <Rating name="half-rating" defaultValue={0} precision={0.5}/>
-//         </Stack>
-//     )
-// }
-
 function Template() {
 
     const finishRide = () => {
@@ -71,7 +37,6 @@ function Template() {
             //Does not pass state
         }
     }
-//     const ride = useContext(UserContext);
     const location = useLocation();
     let ride = location.state;
     ride.phone = "(123) 456-789";

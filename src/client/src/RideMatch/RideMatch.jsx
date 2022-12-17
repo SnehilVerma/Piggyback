@@ -1,7 +1,7 @@
 import "./RideMatch.css";
 import { Avatar, Button } from '@mui/material';
-import {Link, useNavigate } from "react-router-dom";
-import React, {Component, useEffect, useState} from "react";
+import {useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
 
 function Template(){
     const [listening, setListening] = useState(false);
@@ -44,13 +44,6 @@ function Template(){
         },[]
      );
 
-    function Ride(id, driver, to, from, rating) {
-        this.id = id;
-        this.driver = driver;
-        this.to = to;
-        this.from = from;
-        this.rating = rating
-    }
 
     function stringAvatar(name) {
         return {
@@ -82,7 +75,6 @@ function Template(){
         const accept = window.confirm('Do you want to confirm this ride?');
         if (accept) {
             navigate('/RideConfirm', {state: request})
-//             window.location = "/RideConfirm";
         }
     }
 

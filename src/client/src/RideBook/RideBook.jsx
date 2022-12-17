@@ -2,7 +2,7 @@ import "./RideBook.css";
 import React, { useState } from "react";
 import Map from "./Map/Map.js";
 import {Button, Autocomplete, TextField, Grid} from '@mui/material';
-import {Link, useNavigate, useLocation } from "react-router-dom";
+import {Link, useLocation } from "react-router-dom";
 
 const Template = (props) => {
   const location = useLocation();
@@ -15,11 +15,8 @@ const Template = (props) => {
   })
   const srcList = ["142 Brittany Mnr Dr", "171 Brittany Mnr Dr"];
   const destList = ["337 Russel St", "375 Russel St"];
-  const params = {};
-  const user = ["Driver", "Passenger"];
-  let dataToReturn = [];
-
-  const submitRide = (response) => {
+    const user = ["Driver", "Passenger"];
+    const submitRide = (response) => {
       const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json','Access-Control-Allow-Origin': '*'},

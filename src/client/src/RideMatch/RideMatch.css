@@ -1,7 +1,6 @@
 
 .ride-list-result-item-individual{
     background: #e1f3f8;
-    /*border-style: groove;*/
     color: #111;
     display: inline-block;
     font-family: 'Lato', sans-serif;
@@ -10,11 +9,8 @@
     line-height: 12px;
     letter-spacing: 1px;
     padding: 10px 15px 8px;
-    /*width  : 150px;*/
-    /*height : 160px;*/
     margin: 0 0 30px 8px;
     align-items: center;
-    /*text-transform: uppercase;*/
 }
 .ride-list {
     margin-top: 20px;
@@ -28,9 +24,6 @@
     line-height: 64px;
     margin-left: 1%;
     margin-bottom: 1%;
-    /*margin: 0 0 0 8px;*/
-    /*text-align: center;*/
-    /*text-transform: uppercase;*/
 }
 .ride-list-accept-btn{
     color: #111;
